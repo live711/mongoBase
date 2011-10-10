@@ -13,7 +13,7 @@ class MONGOBASE {
 
 	public function settings($options,$defaults = array()){
 		if(! $options === false && is_array($options)){
-			return array_merge($default,$options);
+			return array_merge($defaults,$options);
 		}
 		return $defaults;
 	}
