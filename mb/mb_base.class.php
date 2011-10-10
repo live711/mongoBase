@@ -27,7 +27,6 @@ class MONGOBASE {
 		return $val;
 	}
 
-
 	public function __($key){
 		if (function_exists('__')) return __($key) . "\n";
 		return $key. "\n";

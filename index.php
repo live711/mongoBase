@@ -1,28 +1,22 @@
 <?php
 
-/* THIS IS AN EXAMPLE APP */
-
-// This file is required and includes other files
-
-
-//require_once(__DIR__.'/mb/mb_plugins.php');
-//require_once(__DIR__.'/mb/mb_lang.php');
+//-> OPTIONAL MODULE = require_once(__DIR__.'/mb/mb_plugins.php');
+//-> OPTIONAL MODULE = require_once(__DIR__.'/mb/mb_lang.php');
 require_once(__DIR__.'/mb/mb_base.class.php');
 require_once(__DIR__.'/mb/mb_db.class.php');
-// require_once(__DIR__.'/mb/');
 
 $mb = new MONGOBASE_DB;
-
 var_dump($mb);
 
+/* EXAMPLE OF ADDING AN OBJECT */
 $add_object = array(
 	'obj'	=> array(
 		'key'	=> 'value'
 	)
 );
+var_dump($mb->mbsert($add_object));
 
-var_dump( $mb->mbsert($add_object) );
-
+/* EXAMPLE OF EDITING AN OBJECT */
 $edit_object = array(
 	'obj'	=> array(
 		'key'	=> time()
@@ -31,6 +25,7 @@ $edit_object = array(
 );
 var_dump($mb->mbsert($edit_object));
 
+/* EXAMPLE OF FINDING AN OBJECT */
 var_dump($mb->find());
 
 /* EXAMPLE OF DELETING AN OBJECT */
