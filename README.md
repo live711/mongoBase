@@ -3,13 +3,15 @@
 # The Basic Features:
 * Fully OOP
 * Rapid App Development
-  return
+
+
 ### Core optional modules include:
 * MongoDB Connect
 * Plugins
 * Languages
 * URLs
 * Security
+
 
 # Getting Started:
 	require_once(__DIR__.'/mb/mb_base.class.php');
@@ -19,4 +21,4 @@
 
 # See it in Action:
 * Supporting [MongoPress](http://mongopress.org) 0.3+
-  return
+
