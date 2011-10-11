@@ -7,6 +7,7 @@ class MONGOBASE_PLUGIN extends MONGOBASE {
 	public $app;
 
     public function __construct($name = 'default plugin',$app=null) {
+
 		// Plugin objects need to register with an app - if not - they are being run standalone
 		// as yet - when would a plugin be run standalone and how it should work is undefined
 		$this->name = $name;
@@ -15,7 +16,8 @@ class MONGOBASE_PLUGIN extends MONGOBASE {
 			$app->register_plugin($this);
 			$this->app = $app;	
 		}
-        parent::__construct();
+
+        parent::__construct(); // then does the options
     }
 
 

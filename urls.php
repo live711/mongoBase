@@ -9,20 +9,13 @@ require_once(__DIR__.'/mb/mb_plugin.class.php');
 require_once(__DIR__.'/mb/mb_urls.class.php');
 
 $app = new MONGOBASE_APP;
-
+var_dump($app);
 // 'custom_urls'  is a special case as it's called on the object set up...
-$app->add_action('custom_urls','my_urls');
 
+// $app->add_action('custom_urls','my_urls'); // global functions
 
-function my_urls($self){
-	// self is set by the calling object
+$app->add_action('custom_urls','urls','my_urls'); // if second argument present that's the name of the plugin  
 
-	if(!defined('ADMIN_SLUG')) define('ADMIN_SLUG', 'admin');
-	$self->register_configuration_setting('ADMIN', 'ADMIN_SLUG', ADMIN_SLUG);
-	if(!defined('MEDIA_SLUG')) define('MEDIA_SLUG', 'media');
-	$self->register_configuration_setting('MEDIA', 'MEDIA_SLUG', MEDIA_SLUG);
-
-}
 
 $urls = new MONGOBASE_URLS('urls',$app);
 
@@ -34,4 +27,18 @@ var_dump($urls);
 $urls->register_configuration_setting('VIDEO', 'VIDEO_SLUG', VIDEO_SLUG);
 
 var_dump($urls->options);
+
+
+
+
+// custom function for demo
+function my_urls($self){
+	// self is set by the calling object
+
+	if(!defined('ADMIN_SLUG')) define('ADMIN_SLUG', 'admin');
+	$self->register_configuration_setting('ADMIN', 'ADMIN_SLUG', ADMIN_SLUG);
+	if(!defined('MEDIA_SLUG')) define('MEDIA_SLUG', 'media');
+	$self->register_configuration_setting('MEDIA', 'MEDIA_SLUG', MEDIA_SLUG);
+
+}
 

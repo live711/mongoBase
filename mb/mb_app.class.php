@@ -40,20 +40,33 @@ class MONGOBASE_APP extends MONGOBASE {
 		return $values;
 	}
 
-	public function add_action($key, $function){
-		// TODO: NEED TO BE ABLE TO ADD OBJECT METHODS AS ACTIONS!
-		if($this->actions!==null && is_array($this->actions)) $this->actions[$key] = $function;
-		else $this->actions = array($key=>$function);
+	public function add_action($key, $a1, $a2 = null){
+
+		if ($this->actions !== null) $this->actions = array();
+		
+		if ($a2 !== null) $this->actions[$key] = array($a1,$a2);
+		else $this->actions[$key] = $a1;
+
 	}
 
-	public function do_action($key, $args = array()) {
-		// TODO: USE AN OBJECT METHOD WITH THE ARGS
-		if($this->actions[$key]) $function = $this->actions[$key];
 
-		if (function_exists($function)){
-			return $function($args);
+	public function do_action($key, $args = array()) {
+
+		// TODO: USE AN OBJECT METHOD WITH THE ARGS
+
+		if(isset($this->actions[$key])) $do = $this->actions[$key];
+
+		if (is_array($do)) {
+			$plugin = $do[0]; $method = $do[1];
+			if (method_exists($this->plugins[$plugin],$method)) return $this->plugins[$plugin]->$method($args); 
+				// or should we use is_callable?
+			else print "\n\nMethod $method undefined\n\n";
+		} else {	
+			$function = &$do;
+			if (function_exists($function)){
+				return $function($args);
+			} else print "\n\nFunction $function undefined\n\n"; // TODO: Error handling
 		}
-		else print "\n\nFunction $function undefined\n\n"; // TODO: Error handling
 	}
 
 

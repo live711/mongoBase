@@ -43,9 +43,12 @@ class MONGOBASE_URLS extends MONGOBASE_PLUGIN {
 		if (isset($this->options) && ! empty($this->options)) return $this->options;
 
 		/* ADDITIONAL ENV SETTINGS GET AUTO-GENERATED BASED ON THESE OPTIONS */
-		$this->do_action('custom_urls',$this); // self referencing function... interesting
+	
+		//	$this->do_action('custom_urls',$this); // self referencing function... for a GLOBAL function
 
-		/*
+		$this->do_action('custom_urls'); // when registering a plugin and method.
+
+		/* EXAMPLE
 		if(!defined('ADMIN_SLUG')) define('ADMIN_SLUG', 'admin');
 		$this->register_configuration_setting('ADMIN', 'ADMIN_SLUG', ADMIN_SLUG);
 
@@ -55,6 +58,14 @@ class MONGOBASE_URLS extends MONGOBASE_PLUGIN {
 
 		return $this->options;
 
+	}
+
+	public function my_urls() {
+		if(!defined('ADMIN_SLUG')) define('ADMIN_SLUG', 'admin');
+		$this->register_configuration_setting('ADMIN', 'ADMIN_SLUG', ADMIN_SLUG);
+
+		if(!defined('MEDIA_SLUG')) define('MEDIA_SLUG', 'media');
+		$this->register_configuration_setting('MEDIA', 'MEDIA_SLUG', MEDIA_SLUG);
 	}
 
 }
