@@ -1,4 +1,14 @@
 <?php
+
+
+// function - to be replaced later
+function apply_filters($a,$b) {
+	return $b;
+}
+function do_action($a) {
+	return '';
+}
+
 // --------------------------------------------------------------------------------
 // PhpConcept Library - Zip Module 2.8.2
 // --------------------------------------------------------------------------------
@@ -5709,6 +5719,8 @@ function mp_get_client_language($default='en'){
     return $default;
 }
 
+
+
 /**
  * WordPress Translation API
  *
@@ -5735,6 +5747,9 @@ function mp_get_client_language($default='en'){
  *
  * @return string The locale of the blog or from the 'locale' hook.
  */
+
+
+
 function get_locale() {
 	global $locale;
 

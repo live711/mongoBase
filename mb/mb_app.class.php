@@ -22,6 +22,19 @@ class MONGOBASE_APP extends MONGOBASE {
         $this->db = new MONGOBASE_DB();
     }
 
+
+	
+	public function register_plugin($plugin) {
+		if (isset($this->plugins[$plugin->name]) && is_object($this->plugins[$plugin->name]))
+			trigger_error("MONGOBASE_PLUGIN ALREADY REGISTERED",E_USER_WARNING);
+
+
+		$this->plugins[$plugin->name] = $plugin;
+	}
+
+
+
+
 }
 
 
