@@ -4,7 +4,6 @@
 * Fully OOP
 * Rapid App Development
 
-
 ### Core optional modules include:
 * MongoDB Connect
 * Plugins
@@ -12,13 +11,13 @@
 * URLs
 * Security
 
-
 # Getting Started:
+	<?php
 	require_once(__DIR__.'/mb/mb_base.class.php');
 	require_once(__DIR__.'/mb/mb_db.class.php');
 	$mb = new MONGOBASE_DB;
 	var_dump($mb);
+	?>
 
 # See it in Action:
 * Supporting [MongoPress](http://mongopress.org) 0.3+
-
