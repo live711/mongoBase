@@ -1,5 +1,5 @@
 <?php
-
+/* What's this? */
 /* OPTIONAL CONFIGURATION SETTINGS */
 define('MONGODB_NAME',		'mongobase');
 define('MONGODB_HOST',		'localhost');
