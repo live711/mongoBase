@@ -8,14 +8,18 @@ class MONGOBASE_PLUGIN extends MONGOBASE {
     public function __construct($app,$name = 'default plugin') {
         
 		// Plugin objects need to register with an app - if not - they are being run standalone
+		$this->name = $name;
 				
 		$this->register_with($app);
     }
 
 	public function register_with($app) {
 		print "registering with APP\n";
-		$app->reigster_plugin($this);
+		$app->register_plugin($this);
 	}
+
+
+
 }
 
 
