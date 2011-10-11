@@ -1,6 +1,6 @@
 <?php
 
-class MONGOBASE_URLS extends MONGOBASE_PLUGIN {
+class MONGOBASE_URLS extends MONGOBASE_MODULE {
 
 	private $ENV = null;
 	private $got_env = false;
@@ -45,7 +45,7 @@ class MONGOBASE_URLS extends MONGOBASE_PLUGIN {
 		/* ADDITIONAL ENV SETTINGS GET AUTO-GENERATED BASED ON THESE OPTIONS */
 	
 		$this->do_action('custom_urls',$this); // self referencing function... for a GLOBAL function
-		//$this->do_action('custom_urls'); // when registering a plugin and method.
+		//$this->do_action('custom_urls'); // when registering a module and method.
 
 		return $this->options;
 

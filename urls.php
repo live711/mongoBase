@@ -5,7 +5,7 @@
 require_once(__DIR__.'/mb/mb_base.class.php');
 require_once(__DIR__.'/mb/mb_db.class.php');
 require_once(__DIR__.'/mb/mb_app.class.php');
-require_once(__DIR__.'/mb/mb_plugin.class.php');
+require_once(__DIR__.'/mb/mb_module.class.php');
 require_once(__DIR__.'/mb/mb_urls.class.php');
 
 $app = new MONGOBASE_APP;

@@ -1,7 +1,5 @@
 <?php
 
-//-> OPTIONAL MODULE = require_once(__DIR__.'/mb/mb_plugins.php');
-//-> OPTIONAL MODULE = require_once(__DIR__.'/mb/mb_lang.php');
 require_once(__DIR__.'/mb/mb_base.class.php');
 require_once(__DIR__.'/mb/mb_db.class.php');
 

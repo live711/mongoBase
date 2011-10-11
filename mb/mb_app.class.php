@@ -5,7 +5,6 @@ class MONGOBASE_APP extends MONGOBASE {
     /* BASE CLASS FOR THE APPLICATIONS USING MONGOBASE */
 
     public $modules; // various objects
-    public $plugins; // in array
 	public $actions = null;
     public $db; // fundamental object
 
@@ -22,14 +21,13 @@ class MONGOBASE_APP extends MONGOBASE {
         $this->db = new MONGOBASE_DB();
     }
 
-
 	
-	public function register_plugin($plugin) {
-		if (isset($this->plugins[$plugin->name]) && is_object($this->plugins[$plugin->name]))
-			trigger_error("MONGOBASE_PLUGIN ALREADY REGISTERED",E_USER_WARNING);
+	public function register_module($module) {
+		if (isset($this->modules[$module->name]) && is_object($this->modules[$module->name]))
+			trigger_error("MONGOBASE_MODULE ALREADY REGISTERED",E_USER_WARNING);
 
 
-		$this->plugins[$plugin->name] = $plugin;
+		$this->modules[$module->name] = $module;
 	}
 
 
@@ -57,8 +55,8 @@ class MONGOBASE_APP extends MONGOBASE {
 		if(isset($this->actions[$key])) $do = $this->actions[$key];
 
 		if (is_array($do)) {
-			$plugin = $do[0]; $method = $do[1];
-			if (method_exists($this->plugins[$plugin],$method)) return $this->plugins[$plugin]->$method($args); 
+			$module= $do[0]; $method = $do[1];
+			if (method_exists($this->modules[$module],$method)) return $this->modules[$module]->$method($args); 
 				// or should we use is_callable?
 			else print "\n\nMethod $method undefined\n\n";
 		} else {	
