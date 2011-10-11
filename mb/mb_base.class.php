@@ -4,7 +4,8 @@ class MONGOBASE {
 
 	/* VERY VERY GENERIC CLASS THAT DOESNT DO ANYTHING -- JUST A FRAME WORK FOR SUBCLASSES */
 
-	public $options = array();
+	public $options = null;
+	public $actions = null;
 
 	function __construct(){
 		$this->options();
@@ -28,8 +29,28 @@ class MONGOBASE {
 	}
 
 	public function __($key){
-		if (function_exists('__')) return __($key) . "\n";
-		return $key. "\n";
+		if (function_exists('__')) return __($key);
+		return $key. "\n"; // TODO: remove n later...?
+	}
+
+	public function apply_filters($key, $values){
+		if (function_exists('apply_filters')){
+			return apply_filters($key, $values); // how to deal with unknown number of values?
+		}
+		return $values;
+	}
+
+	public function add_action($key, $function){
+		if($this->actions!==null && is_array($this->actions)) $this->actions[$key] = $function;
+		else $this->actions = array($key=>$function);
+	}
+
+	public function do_action($key, $args = array()){
+		if($this->actions[$key]) $function = $this->actions[$key];
+		if (function_exists($function)){
+			return $function($args);
+			//return do_action($key, $function); // how to deal with unknown number of values?
+		}
 	}
 
 	public function register_configuration_setting($key, $definition = false, $constant = false, $default = null){
@@ -49,8 +70,25 @@ class MONGOBASE {
 		$this->options = array();
 		if(!defined('DEMO_CONFIG')) define('DEMO_CONFIG', 'default_value');
 		$this->register_configuration_setting('demo_key', 'DEMO_CONFIG', DEMO_CONFIG);
-		$this->options = $options;
-		return $options;
+		return $this->options;
+	}
+
+	public function is_set($array,$count=0,$field=false){
+		$is_set = false;
+		if($field){
+			if(isset($array[$field])){
+				$array[] = $array[$field];
+			}else{
+				$array = false;
+			}
+		}
+		if(isset($array)){
+			if(is_array($array)){
+				if(count($array)>$count){
+					$is_set = true;
+				}
+			}
+		} return $is_set;
 	}
 
 }
