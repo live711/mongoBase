@@ -5,7 +5,7 @@ class MONGOBASE {
 	/* VERY VERY GENERIC CLASS THAT DOESNT DO ANYTHING -- JUST A FRAME WORK FOR SUBCLASSES */
 
 	public $options = null;
-	public $actions = null;
+
 
 	function __construct(){
 		$this->options();
@@ -33,25 +33,6 @@ class MONGOBASE {
 		return $key. "\n"; // TODO: remove n later...?
 	}
 
-	public function apply_filters($key, $values){
-		if (function_exists('apply_filters')){
-			return apply_filters($key, $values); // how to deal with unknown number of values?
-		}
-		return $values;
-	}
-
-	public function add_action($key, $function){
-		if($this->actions!==null && is_array($this->actions)) $this->actions[$key] = $function;
-		else $this->actions = array($key=>$function);
-	}
-
-	public function do_action($key, $args = array()){
-		if($this->actions[$key]) $function = $this->actions[$key];
-		if (function_exists($function)){
-			return $function($args);
-			//return do_action($key, $function); // how to deal with unknown number of values?
-		}
-	}
 
 	public function register_configuration_setting($key, $definition = false, $constant = false, $default = null){
 		/* requires that values are defined somewhere - probably in the config module */

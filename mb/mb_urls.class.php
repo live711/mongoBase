@@ -1,12 +1,12 @@
 <?php
 
-class MONGOBASE_URLS extends MONGOBASE {
+class MONGOBASE_URLS extends MONGOBASE_PLUGIN {
 
 	private $ENV = null;
 	private $got_env = false;
 
-	function __construct(){
-		parent::__construct();
+	function __construct($name,$app){
+		parent::__construct($name,$app);
 		$this->got_env = $this->env();
 	}
 
@@ -42,9 +42,8 @@ class MONGOBASE_URLS extends MONGOBASE {
 
 		if (isset($this->options) && ! empty($this->options)) return $this->options;
 
-		/* ELSE - GATHER CONFIG SETTINGS */
 		/* ADDITIONAL ENV SETTINGS GET AUTO-GENERATED BASED ON THESE OPTIONS */
-		$this->do_action('custom_urls');
+		$this->do_action('custom_urls',$this); // self referencing function... interesting
 
 		/*
 		if(!defined('ADMIN_SLUG')) define('ADMIN_SLUG', 'admin');

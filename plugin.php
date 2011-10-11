@@ -13,7 +13,7 @@ require_once(__DIR__.'/mb/mb_plugin.class.php');	// ditto
 
 $app = new MONGOBASE_APP;
 
-$plugin = new MONGOBASE_PLUGIN($app,'example');
+$plugin = new MONGOBASE_PLUGIN('example',$app);
 
 var_dump($app);
 
