@@ -9,7 +9,9 @@ $app = new MONGOBASE_APP;
 
 /* FUNCTION FOR ADDING CONTENT */
 function custom_body($self){
-	return 'Hello World';
+	$content = 'Hello World';
+	$body = $self.$content;
+	return $body;
 }
 $app->add_filter('body_init','custom_body'); // global functions
 
