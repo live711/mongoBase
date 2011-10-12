@@ -9,7 +9,7 @@ $app = new MONGOBASE_APP;
 
 /* FUNCTION FOR ADDING CONTENT */
 function custom_body($self){
-	$content = 'Hello World';
+	$content = '<div id="content">Hello World</div>';
 	$body = $self.$content;
 	return $body;
 }
@@ -17,4 +17,5 @@ $app->add_filter('body_init','custom_body'); // global functions
 
 $mb = new MONGOBASE_DISPLAY('default',$app);
 
-$mb->display($mb);
+//$mb->display($mb); // Uncomment to see the $mb display object
+$mb->display();

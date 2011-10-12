@@ -15,14 +15,28 @@ class MONGOBASE_DISPLAY extends MONGOBASE_MODULE {
 	private function header_init($options=false){
 
 		$defaults = array(
-			'title'	=> 'mongoBase'
+			'title'		=> 'mongoBase',
+			'styles'	=> array(
+				'base'	=> 'css',
+				'reset'	=> 'reset.css'
+			),
+			'scripts'	=> array(
+				'base'	=> 'js',
+				'js'	=> 'js.js'
+			)
 		);
 		$settings = $this->settings($options,$defaults);
 
+		/* ESTABLISH HEADER VIEW */
 		$view = '<!doctype html>';
 		$view.= '<html class="" lang="en">';
 		$view.= '<head>';
 		$view.= '<title>'.$settings['title'].'</title>';
+		if($this->is_set($settings['styles'])){
+			$view.= $this->styles($settings['styles']);
+		} if($this->is_set($settings['scripts'])){
+			$view.= $this->scripts($settings['scripts']);
+		}
 		$view.= '</head>';
 		$view.= '<body>';
 
@@ -41,6 +55,26 @@ class MONGOBASE_DISPLAY extends MONGOBASE_MODULE {
 		$view.= '</html>';
 		$display['view'] = $this->apply_filters('footer_init',$view);
 		return $display;
+	}
+
+	private function styles($styles=false){
+		$style = false;
+		if(($this->is_set($styles))&&($this->is_set($styles,0,'base'))){
+			$base = array_shift($styles);
+			foreach($styles as $handle => $file){
+				$style.= '<link rel="stylesheet" id="'.$handle.'-css" href="'.$base.'/'.$file.'" type="text/css" media="all" />';
+			}
+		} if($style) return $style;
+	}
+
+	private function scripts($scripts=false){
+		$script = false;
+		if(($this->is_set($scripts))&&($this->is_set($scripts,0,'base'))){
+			$base = array_shift($scripts);
+			foreach($scripts as $handle => $file){
+				$script.= '<script id="'.$handle.'-js" src="'.$base.'/'.$file.'"></script>';
+			}
+		} if($script) return $script;
 	}
 
 	public function display($debug=false){
