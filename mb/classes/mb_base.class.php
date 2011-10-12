@@ -72,4 +72,11 @@ class MONGOBASE {
 		} return $is_set;
 	}
 
+	public function mb_dump($arg){
+		$dump = '<br /><br />Debugging object:<br /><pre>';
+		$dump.= print_r($arg,true);
+		$dump.= '</pre><br /><br />';
+		return $dump;
+	}
+
 }

@@ -43,6 +43,16 @@ class MONGOBASE_DISPLAY extends MONGOBASE_MODULE {
 		return $display;
 	}
 
+	public function display($debug=false){
+		$page = $this->VIEW['HEADER']['view'];
+		$page.= $this->VIEW['BODY']['view'];
+		if(is_object($debug)){
+			$page.= $this->mb_dump($debug);
+		}
+		$page.= $this->VIEW['FOOTER']['view'];
+		echo $page;
+	}
+
 	public function view($force_refresh = false){
 
 		if(!$force_refresh && $this->VIEW!==null) return true;

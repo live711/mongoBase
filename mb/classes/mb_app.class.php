@@ -36,20 +36,20 @@ class MONGOBASE_APP extends MONGOBASE {
 
 	public function apply_filters($key, $args){
 		if(isset($this->filters[$key])) $do = $this->filters[$key];
-		else $do = false;
-
-		if (is_array($do)) {
-			$module= $do[0]; $method = $do[1];
-			if (method_exists($this->modules[$module],$method)) return $this->modules[$module]->$method($args);
-				// or should we use is_callable?
-			else print "\n\nMethod $method undefined\n\n";
-		} else {
-			$function = $do;
-			if (function_exists($function)){
-				return $function($args);
+		else $do = null;
+		if($do!==null){
+			if(is_array($do)){
+				/* TODO: CANNOT GET GLOBALS TO WORK */
+				$module= $do[0]; $method = $do[1];
+				if(method_exists($this->modules[$module],$method)) return $this->modules[$module]->$method($args);
 			}else{
-				return $args;
+				$function = &$do;
+				if (function_exists($function)){
+					return $function($args);
+				}
 			}
+		}else{
+			return $args;
 		}
 	}
 
@@ -59,6 +59,15 @@ class MONGOBASE_APP extends MONGOBASE {
 		
 		if ($a2 !== null) $this->actions[$key] = array($a1,$a2);
 		else $this->actions[$key] = $a1;
+
+	}
+
+	public function add_filter($key, $a1, $a2 = null){
+
+		if ($this->filters !== null) $this->filters = array();
+
+		if ($a2 !== null) $this->filters[$key] = array($a1,$a2);
+		else $this->filters[$key] = $a1;
 
 	}
 
