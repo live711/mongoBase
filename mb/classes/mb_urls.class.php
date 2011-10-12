@@ -21,12 +21,7 @@ class MONGOBASE_URLS extends MONGOBASE_MODULE {
 		$env['ROOT'] = str_replace($_SERVER['DOCUMENT_ROOT'],'',$env['ROOT_PATH']);
 		if (empty($env['ROOT'])) $env['ROOT'] = '/';
 
-		if($this->is_set($this->options)){
-			foreach($this->options as $key => $value){
-				$env[$key.'_PATH'] = $env['ROOT_PATH'].$value.'/';
-				$env[$key] = $env['ROOT'].$value.'/';
-			}
-		}
+
 
 		$env['SLUG'] = $_SERVER['REQUEST_URI'];
 		$qs_pos = strpos($env['SLUG'],'?');

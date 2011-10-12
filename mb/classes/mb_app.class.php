@@ -6,6 +6,7 @@ class MONGOBASE_APP extends MONGOBASE {
 
     public $modules; // various objects
 	public $actions = null;
+	public $filters = null;
     public $db; // fundamental object
 
 
@@ -14,7 +15,8 @@ class MONGOBASE_APP extends MONGOBASE {
         // For now - just create a db instance and register it.
         if (! class_exists('MONGOBASE_DB')) {
             // Could do - a require_once - and assume directory structure...
-            trigger_error("MONGOBASE_DB Class Required",E_FATAL);
+            if(defined('E_FATAL')) trigger_error("MONGOBASE_DB Class Required",E_FATAL);
+			else trigger_error("MONGOBASE_DB Class Required"); // Fixes windows errors
             die();
         }
 
@@ -31,11 +33,23 @@ class MONGOBASE_APP extends MONGOBASE {
 	}
 
 
-	public function apply_filters($key, $values){
-		if (function_exists('apply_filters')){
-			return apply_filters($key, $values); // how to deal with unknown number of values? (func_get_args)
+	public function apply_filters($key, $args){
+		if(isset($this->filters[$key])) $do = $this->filters[$key];
+		else $do = false;
+
+		if (is_array($do)) {
+			$module= $do[0]; $method = $do[1];
+			if (method_exists($this->modules[$module],$method)) return $this->modules[$module]->$method($args);
+				// or should we use is_callable?
+			else print "\n\nMethod $method undefined\n\n";
+		} else {
+			$function = $do;
+			if (function_exists($function)){
+				return $function($args);
+			}else{
+				return $args;
+			}
 		}
-		return $values;
 	}
 
 	public function add_action($key, $a1, $a2 = null){
