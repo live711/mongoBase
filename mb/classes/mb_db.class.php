@@ -21,20 +21,21 @@ class MONGOBASE_DB extends MONGOBASE {
 
 			if($options['db_replicas'] === true && $options['db_user'] !=='' ){
 				//replica and database need authentication
-				$m = new Mongo("mongodb://{$options['db_user']}:{$options['db_pass']}@{$options['db_host']}:{$options['db_port']}/{$options['db_name']}", array('replicaSet' => true));
+				$m = new Mongo("mongodb://{$options['db_user']}:{$options['db_pass']}@{$options['db_host']}:{$options['db_port']}", array('replicaSet' => true));
 			}elseif($options['db_replicas'] === true){
 				//replica set and no auth.
-				$m = new Mongo("mongodb://{$options['db_host']}:{$options['db_port']}/{$options['db_name']}", array('replicaSet' => true));
+				$m = new Mongo("mongodb://{$options['db_host']}:{$options['db_port']}", array('replicaSet' => true));
 			}elseif($options['db_user']!=false){
 				////database need authentication
-				$m = new Mongo("mongodb://{$options['db_user']}:{$options['db_pass']}@{$options['db_host']}:{$options['db_port']}/{$options['db_name']}");
+				$m = new Mongo("mongodb://{$options['db_user']}:{$options['db_pass']}@{$options['db_host']}:{$options['db_port']}");
 			}else{
 				//default without auth and replica
-				$m = new Mongo("mongodb://{$options['db_host']}:{$options['db_port']}/{$options['db_name']}");
+				$m = new Mongo("mongodb://{$options['db_host']}:{$options['db_port']}");
 			}
 
 			$this->mongo = $m;
-			$this->dbh = $m->db;
+			$this->dbh = $m->$options['db_name'];
+			
 			return true;
 
 		}catch(MongoConnectionException $e){

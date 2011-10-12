@@ -1,5 +1,8 @@
 <?php
 
+//define('MONGODB_NAME', 'mb'); // Test over-ride DB
+$just_find = false;
+
 require_once(dirname(__DIR__).'/mb/classes/mb_base.class.php');
 require_once(dirname(__DIR__).'/mb/classes/mb_db.class.php');
 
@@ -12,7 +15,7 @@ $add_object = array(
 		'key'	=> 'value'
 	)
 );
-var_dump($mb->mbsert($add_object));
+if($just_find) var_dump($mb->mbsert($add_object));
 
 /* EXAMPLE OF EDITING AN OBJECT */
 $edit_object = array(
@@ -21,7 +24,7 @@ $edit_object = array(
 	),
 	'id'	=> 'XXX' // Replace with valid ID to accomplish an edit
 );
-var_dump($mb->mbsert($edit_object));
+if($just_find) var_dump($mb->mbsert($edit_object));
 
 /* EXAMPLE OF FINDING AN OBJECT */
 var_dump($mb->find());
@@ -30,4 +33,4 @@ var_dump($mb->find());
 $delete_object = array(
 	'id'	=> 'XXX' // Replace with valid ID to accomplish an edit
 );
-var_dump($mb->delete($delete_object));
+if($just_find) var_dump($mb->delete($delete_object));

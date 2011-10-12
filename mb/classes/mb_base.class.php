@@ -3,9 +3,7 @@
 class MONGOBASE {
 
 	/* VERY VERY GENERIC CLASS THAT DOESNT DO ANYTHING -- JUST A FRAME WORK FOR SUBCLASSES */
-
 	public $options = null;
-
 
 	function __construct(){
 		$this->options();
@@ -32,7 +30,6 @@ class MONGOBASE {
 		if (function_exists('__')) return __($key);
 		return $key. "\n"; // TODO: remove n later...?
 	}
-
 
 	public function register_configuration_setting($key, $definition = false, $constant = false, $default = null){
 		/* requires that values are defined somewhere - probably in the config module */
