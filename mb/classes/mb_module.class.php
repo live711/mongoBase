@@ -6,7 +6,7 @@ class MONGOBASE_MODULE extends MONGOBASE {
 	public $name;
 	public $app;
 
-    public function __construct($name = 'default_module', $app=null) {
+    public function __construct($name = 'default_module', $app = null) {
 
 		// Plugin objects need to register with an app - if not - they are being run standalone
 		// as yet - when would a module be run standalone and how it should work is undefined

@@ -11,12 +11,13 @@ class MONGOBASE_APP extends MONGOBASE {
 
 
     public function __construct() {
-        
+    }
+
+	public function setup_db() {
         // For now - just create a db instance and register it.
         if (! class_exists('MONGOBASE_DB')) {
             // Could do - a require_once - and assume directory structure...
-            if(defined('E_FATAL')) trigger_error("MONGOBASE_DB Class Required",E_FATAL);
-			else trigger_error("MONGOBASE_DB Class Required"); // Fixes windows errors
+            trigger_error("MONGOBASE_DB Class Required",E_USER_WARNING);
             die();
         }
 
