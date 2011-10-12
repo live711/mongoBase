@@ -7,9 +7,9 @@ class MONGOBASE_DB extends MONGOBASE {
 	public $error;
 	private $is_connected = false;
 
-	function __construct(){
+	function __construct($force = false){
 		parent::__construct();
-		$this->is_connected = $this->connect();
+		if ($force) $this->is_connected = $this->connect();
 	}
 
 	private function connect(){
