@@ -2,11 +2,11 @@
 
 /* THIS EXAMPLE SHOWCASES THE URLS CLASS */
 
-require_once(__DIR__.'/mb/mb_base.class.php');
-require_once(__DIR__.'/mb/mb_db.class.php');
-require_once(__DIR__.'/mb/mb_app.class.php');
-require_once(__DIR__.'/mb/mb_module.class.php');
-require_once(__DIR__.'/mb/mb_urls.class.php');
+require_once(dirname(__DIR__).'/mb/classes/mb_base.class.php');
+require_once(dirname(__DIR__).'/mb/classes/mb_db.class.php');
+require_once(dirname(__DIR__).'/mb/classes/mb_app.class.php');
+require_once(dirname(__DIR__).'/mb/classes/mb_module.class.php');
+require_once(dirname(__DIR__).'/mb/classes/mb_urls.class.php');
 
 $app = new MONGOBASE_APP;
 // 'custom_urls'  is a special case as it's called on the object set up...

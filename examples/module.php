@@ -5,11 +5,11 @@
 // This file is required and includes other files
 
 
-require_once(__DIR__.'/mb/mb_lang.php');
-require_once(__DIR__.'/mb/mb_base.class.php');
-require_once(__DIR__.'/mb/mb_db.class.php');
-require_once(__DIR__.'/mb/mb_app.class.php');		// in actual apps this will be a subclass
-require_once(__DIR__.'/mb/mb_module.class.php');	// ditto
+require_once(dirname(__DIR__).'/mb/lib/mb_lang.php');
+require_once(dirname(__DIR__).'/mb/classes/mb_base.class.php');
+require_once(dirname(__DIR__).'/mb/classes/mb_db.class.php');
+require_once(dirname(__DIR__).'/mb/classes/mb_app.class.php');		// in actual apps this will be a subclass
+require_once(dirname(__DIR__).'/mb/classes/mb_module.class.php');	// ditto
 
 $app = new MONGOBASE_APP;
 

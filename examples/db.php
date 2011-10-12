@@ -1,7 +1,7 @@
 <?php
 
-require_once(__DIR__.'/mb/mb_base.class.php');
-require_once(__DIR__.'/mb/mb_db.class.php');
+require_once(dirname(__DIR__).'/mb/classes/mb_base.class.php');
+require_once(dirname(__DIR__).'/mb/classes/mb_db.class.php');
 
 $mb = new MONGOBASE_DB;
 var_dump($mb);
