@@ -1,7 +1,5 @@
 <?php
 
-global $mb;
-
 require_once(dirname(__DIR__).'/mb/classes/mb_base.class.php'); // Required
 require_once(dirname(__DIR__).'/mb/classes/mb_app.class.php'); // Required for $app, which is required for display
 require_once(dirname(__DIR__).'/mb/classes/mb_module.class.php'); // Allows modules
