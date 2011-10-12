@@ -1,8 +1,9 @@
 <?php
+/* This module is assumed to be running withing a webserver... well urls wouldn't make sense outside of one? */
+
 
 class MONGOBASE_URLS extends MONGOBASE_MODULE {
-
-	private $ENV = null;
+	public $ENV = null;
 	private $got_env = false;
 
 	function __construct($name,$app){
@@ -12,24 +13,32 @@ class MONGOBASE_URLS extends MONGOBASE_MODULE {
 
 	public function env($force_refresh = false){
 
-		if(!$force_refresh && $this->ENV!==null) return true;
+	if(!$force_refresh && $this->ENV!==null) return true;
 
-		$env['ROOT_PATH'] = dirname(__DIR__);
-		if (DIRECTORY_SEPARATOR !== '/') {
-			$env['ROOT_PATH'] = str_replace('\\','/',$env['ROOT_PATH']).'/';
-		}
-		$env['ROOT'] = str_replace($_SERVER['DOCUMENT_ROOT'],'',$env['ROOT_PATH']);
-		if (empty($env['ROOT'])) $env['ROOT'] = '/';
+	$env['DOCUMENT_ROOT'] = dirname($_SERVER['SCRIPT_FILENAME']); // index.php
 
+	if (DIRECTORY_SEPARATOR !== '/') {
+		$env['DOCUMENT_ROOT'] = str_replace('\\','/',$env['DOCUMENT_ROOT']);
+	}
+	$env['MB_CLASSES'] = __DIR__;
+	$env['MB_BASE'] = dirname(__DIR__);
 
+	var_dump($env);
+	$env['MB_HOME'] = str_replace($_SERVER['DOCUMENT_ROOT'],'',$env['DOCUMENT_ROOT']);
+	if (empty($env['MB_HOME'])) $env['MB_HOME'] = '/';
+	else $env['MB_HOME'] .= '/';
 
-		$env['SLUG'] = $_SERVER['REQUEST_URI'];
-		$qs_pos = strpos($env['SLUG'],'?');
-		if ($qs_pos !== false) $env['SLUG'] = substr($env['SLUG'],0,$qs_pos);
-		$env['SLUG_PATH'] = $env['ROOT_PATH'].substr($env['SLUG'],strlen($env['ROOT']));
-		$env['SLUG'] = substr($env['SLUG'],strlen($env['ROOT']));
+	$env['MB_SLUG'] = $_SERVER['REQUEST_URI'];
+
+	var_dump(strlen($env['MB_HOME']));
+	$qs_pos = strpos($env['MB_SLUG'],'?');
+	if ($qs_pos !== false) $env['MB_SLUG'] = substr($env['MB_SLUG'],0,$qs_pos);
+
+	$env['MB_SLUG'] = substr($env['MB_SLUG'],strlen($env['MB_HOME']));
+		// QS is available in _GET.
 
 		$this->ENV = $env;
+
 		return true;
 	}
 
