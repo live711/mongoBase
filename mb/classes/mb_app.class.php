@@ -53,21 +53,21 @@ class MONGOBASE_APP extends MONGOBASE {
 		}
 	}
 
-	public function add_action($key, $a1, $a2 = null){
+	public function add_action($key, $arg1, $arg2 = null){
 
 		if ($this->actions !== null) $this->actions = array();
 		
-		if ($a2 !== null) $this->actions[$key] = array($a1,$a2);
-		else $this->actions[$key] = $a1;
+		if ($arg2 !== null) $this->actions[$key] = array($arg1,$arg2);
+		else $this->actions[$key] = $arg1;
 
 	}
 
-	public function add_filter($key, $a1, $a2 = null){
+	public function add_filter($key, $arg1, $arg2 = null){
 
 		if ($this->filters !== null) $this->filters = array();
 
-		if ($a2 !== null) $this->filters[$key] = array($a1,$a2);
-		else $this->filters[$key] = $a1;
+		if ($arg2 !== null) $this->filters[$key] = array($arg1,$arg2);
+		else $this->filters[$key] = $arg1;
 
 	}
 
@@ -96,6 +96,3 @@ class MONGOBASE_APP extends MONGOBASE {
 
 
 }
-
-
-?>

@@ -81,7 +81,7 @@ class MONGOBASE_FORM extends MONGOBASE_MODULE {
 		return $settings;
 	}
 
-	private function form_settings($options=false){
+	private function form_settings($args=false){
 		$default_styles_wrapped = true;
 		$default_styles_fluid = true;
 		$default_styles_bg = '#F5F5F5';
@@ -91,56 +91,56 @@ class MONGOBASE_FORM extends MONGOBASE_MODULE {
 		$default_styles_hover_bg = '#EFEFEF';
 		$default_styles_hover_border = '1px solid #CCCCCC';
 		$default_styles_hover_color = '#333333';
-		if(isset($options['styles']['wrapped'])){
-			$this_styles_wrapped = $options['styles']['wrapped'];
+		if(isset($args['styles']['wrapped'])){
+			$this_styles_wrapped = $args['styles']['wrapped'];
 		} if(isset($this_styles_wrapped)){
 			$styles_wrapped = $this_styles_wrapped;
 		}else{
 			$styles_wrapped = $default_styles_wrapped;
-		} if(isset($options['styles']['fluid'])){
-			$this_styles_fluid = $options['styles']['fluid'];
+		} if(isset($args['styles']['fluid'])){
+			$this_styles_fluid = $args['styles']['fluid'];
 		} if(isset($this_styles_fluid)){
 			$styles_fluid = $this_styles_fluid;
 		}else{
 			$styles_fluid = $default_styles_fluid;
-		} if(isset($options['styles']['bg'])){
-			$this_styles_bg = $options['styles']['bg'];
+		} if(isset($args['styles']['bg'])){
+			$this_styles_bg = $args['styles']['bg'];
 		} if(isset($this_styles_bg)){
 			$styles_bg = $this_styles_bg;
 		}else{
 			$styles_bg = $default_styles_bg;
-		} if(isset($options['styles']['border'])){
-			$this_styles_border = $options['styles']['border'];
+		} if(isset($args['styles']['border'])){
+			$this_styles_border = $args['styles']['border'];
 		} if(isset($this_styles_border)){
 			$styles_border = $this_styles_border;
 		}else{
 			$styles_border = $default_styles_border;
-		} if(isset($options['styles']['color'])){
-			$this_styles_color = $options['styles']['color'];
+		} if(isset($args['styles']['color'])){
+			$this_styles_color = $args['styles']['color'];
 		} if(isset($this_styles_color)){
 			$styles_color = $this_styles_color;
 		}else{
 			$styles_color = $default_styles_color;
-		} if(isset($options['styles']['label'])){
-			$this_styles_label = $options['styles']['label'];
+		} if(isset($args['styles']['label'])){
+			$this_styles_label = $args['styles']['label'];
 		} if(isset($this_styles_label)){
 			$styles_label = $this_styles_label;
 		}else{
 			$styles_label = $default_styles_label;
-		} if(isset($options['styles']['hover']['bg'])){
-			$this_styles_hover_bg = $options['styles']['hover']['bg'];
+		} if(isset($args['styles']['hover']['bg'])){
+			$this_styles_hover_bg = $args['styles']['hover']['bg'];
 		} if(isset($this_styles_hover_bg)){
 			$styles_hover_bg = $this_styles_hover_bg;
 		}else{
 			$styles_hover_bg = $default_styles_hover_bg;
-		} if(isset($options['styles']['hover']['border'])){
-			$this_styles_hover_border = $options['styles']['hover']['border'];
+		} if(isset($args['styles']['hover']['border'])){
+			$this_styles_hover_border = $args['styles']['hover']['border'];
 		} if(isset($this_styles_hover_border)){
 			$styles_hover_border = $this_styles_hover_border;
 		}else{
 			$styles_hover_border = $default_styles_hover_border;
-		} if(isset($options['styles']['hover']['color'])){
-			$this_styles_hover_color = $options['styles']['hover']['color'];
+		} if(isset($args['styles']['hover']['color'])){
+			$this_styles_hover_color = $args['styles']['hover']['color'];
 		} if(isset($this_styles_hover_color)){
 			$styles_hover_color = $this_styles_hover_color;
 		}else{
@@ -169,8 +169,8 @@ class MONGOBASE_FORM extends MONGOBASE_MODULE {
 				)
 			)
 		);
-		if(is_array($options)){
-			$settings = array_merge($default_options,$options);
+		if(is_array($args)){
+			$settings = array_merge($default_options,$args);
 		}else{
 			$settings = $default_options;
 		} /* MODIFY SETTINGS ARRAY */

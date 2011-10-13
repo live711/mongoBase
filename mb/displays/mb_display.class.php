@@ -10,7 +10,7 @@ class MONGOBASE_DISPLAY extends MONGOBASE_MODULE {
 		$this->got_view = $this->view();
 	}
 
-	private function header_init($options=false){
+	private function header_init($args=false){
 
 		$defaults = array(
 			'title'		=> 'mongoBase',
@@ -23,7 +23,7 @@ class MONGOBASE_DISPLAY extends MONGOBASE_MODULE {
 				'js'	=> 'js.js'
 			)
 		);
-		$settings = $this->settings($options,$defaults);
+		$settings = $this->settings($args,$defaults);
 
 		/* ESTABLISH HEADER VIEW */
 		$view = '<!doctype html>';

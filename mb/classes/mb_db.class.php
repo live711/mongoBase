@@ -95,7 +95,7 @@ class MONGOBASE_DB extends MONGOBASE {
         
     }
 
-	public function mbsert($options = false){
+	public function mbsert($args = false){
 
 		/* mbsert() allow for intelligent inserting and (or) updating */
 
@@ -104,7 +104,7 @@ class MONGOBASE_DB extends MONGOBASE {
 			'obj'   => false,
 			'id'	=> false
 		);
-		$settings = $this->settings($options,$defaults);
+		$settings = $this->settings($args,$defaults);
 
 		if(!$this->is_connected) $this->connect();
 		$dbh = $this->dbh;
@@ -131,7 +131,7 @@ class MONGOBASE_DB extends MONGOBASE {
 		}
 	}
 
-	public function find($options = false){
+	public function find($args = false){
 
 		$defaults = array(
 			'col'		=> 'mbsert',
@@ -142,7 +142,7 @@ class MONGOBASE_DB extends MONGOBASE {
 			'order'		=> false,
 			'id'		=> false
 		);
-		$settings = $this->settings($options,$defaults);
+		$settings = $this->settings($args,$defaults);
 
 		if($settings['order_by']){
 			if ($settings['order']!='desc') $order_value=1; else $order_value=-1;
@@ -165,13 +165,13 @@ class MONGOBASE_DB extends MONGOBASE {
 		}
 	}
 
-	public function delete($options = false) {
+	public function delete($args = false) {
 		
 		$defaults = array(
 			'col'		=> 'mbsert',
 			'id'		=> false
 		);
-		$settings = $this->settings($options,$defaults);
+		$settings = $this->settings($args,$defaults);
 
 		if(!$this->is_connected) $this->connect();
 		$dbh = $this->dbh;
