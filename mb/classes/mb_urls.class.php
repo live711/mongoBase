@@ -29,8 +29,8 @@ class MONGOBASE_URLS extends MONGOBASE_MODULE {
 
 	if($this->is_set($this->options)){
 			foreach($this->options as $key => $value){
-				$env[$key.'_PATH'] = $env['MB_BASE'].'/'.$value.'/';
-				$env[$key] = $env['MB_BASE'].'/'.$value.'/';
+				$env[$key.'_PATH'] = $env['MB_BASE'].DIRECTORY_SEPARATOR.$value.DIRECTORY_SEPARATOR;
+				$env[$key.'_URL'] = $env['MB_HOME'].$value.'/';
 			}
 	}
 	$env['MB_SLUG'] = $_SERVER['REQUEST_URI'];
