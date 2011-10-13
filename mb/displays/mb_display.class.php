@@ -4,9 +4,11 @@ class MONGOBASE_DISPLAY extends MONGOBASE_MODULE {
 
 	private $VIEW = null;
 	private $got_view = false;
+	private $display_options = false;
 
-	function __construct($name=null,$app=null){
+	function __construct($name=null,$app=null,$args=null){
 		parent::__construct($name,$app);
+		$this->display_options = $args;
 		$this->got_view = $this->view();
 	}
 
@@ -90,7 +92,7 @@ class MONGOBASE_DISPLAY extends MONGOBASE_MODULE {
 		if(!$force_refresh && $this->VIEW!==null) return true;
 
 		/* NON-OPTIONAL */
-		$view['HEADER'] = $this->header_init();
+		$view['HEADER'] = $this->header_init($this->display_options['header']);
 		$view['BODY'] = $this->body_init();
 		$view['FOOTER'] = $this->footer_init();
 

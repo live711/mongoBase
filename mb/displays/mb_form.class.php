@@ -7,10 +7,9 @@ class MONGOBASE_FORM extends MONGOBASE_MODULE {
 	private $construct_set = false;
 	private $form_options = null;
 
-	function __construct($name=null,$app=null,$settings=null){
+	function __construct($name=null,$app=null,$args=null){
 		parent::__construct($name,$app);
-		$this->form_options = $settings;
-		if($name!==null && $app!==null) $this->construct_set = true;
+		$this->form_options = $args;
 		$this->got_form = $this->form();
 	}
 
@@ -392,7 +391,6 @@ class MONGOBASE_FORM extends MONGOBASE_MODULE {
 
 		if (isset($this->options) && ! empty($this->options)) return $this->options;
 
-		//if($this->construct_set) $this->do_action('form_options',$this);
 		$this->do_action('form_options',$this);
 
 		return $this->options;

@@ -122,15 +122,32 @@ $form_options = array(
 			'class'         => 'blanked'
 		),
 		'field-09'	=> array(
-			'type'          => 'textbox',
+			'type'          => 'select',
 			'position'		=> 'third right',
+			'id'            => false,
+			'name'          => false,
+			'current_value' => false,
+			'default_value' => 'eng',
+			'placeholder'   => false,
+			'required'      => false,
+			'label'         => $app->__('Language'),
+			'class'         => 'blanked',
+			'values'		=> array(
+				''			=> '',
+				'eng'		=> $app->__('English'),
+				'es'		=> $app->__('Spanish')
+			)
+		),
+		'field-10'	=> array(
+			'type'          => 'textarea',
+			'position'		=> false,
 			'id'            => false,
 			'name'          => false,
 			'current_value' => false,
 			'default_value' => false,
 			'placeholder'   => false,
 			'required'      => false,
-			'label'         => $app->__('Language'),
+			'label'         => $app->__('Description'),
 			'class'         => 'blanked'
 		),
 	),
@@ -170,7 +187,20 @@ function custom_body($self){
 $app->add_filter('body_init','custom_body'); // global functions
 
 /* ASSIGN APP TO DISPLAY */
-$mb = new MONGOBASE_DISPLAY('default',$app);
+$display_options = array(
+	'header'	=> array(
+		'title'		=> 'mongoBase Form Example',
+		'styles'	=> array(
+			'base'	=> 'css',
+			'reset'	=> 'reset.css'
+		),
+		'scripts'	=> array(
+			'base'	=> 'js',
+			'js'	=> 'js.js'
+		)
+	)
+);
+$mb = new MONGOBASE_DISPLAY('default',$app,$display_options);
 
 // Check the display object
 //$mb->display($mb);
