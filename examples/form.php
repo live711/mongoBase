@@ -8,6 +8,7 @@ require_once(dirname(__DIR__).'/mb/displays/mb_form.class.php'); // Desired modu
 
 $app = new MONGOBASE_APP;
 
+/* EXAMPLE OF BUILDING A FORM - SHOWCASING ALL AVAILABLE OPTIONS */
 $form_options = array(
 	'submit'        => true,
 	'submit_text'   => $app->__('Submit Example'),
@@ -43,11 +44,15 @@ $form_options = array(
 		)
 	)
 );
-
 $form = new MONGOBASE_FORM('example_form',$app,$form_options);
 
-//var_dump($mb->FORM);
+// Check the form object
+//var_dump($form);
 
+// Simply display the form as is:
+// $form->display();
+
+/* USE FORM IN CONJUNCTION WITH DISPLAY */
 global $app, $example_form;
 $example_form = $form->get();
 
@@ -60,7 +65,11 @@ function custom_body($self){
 }
 $app->add_filter('body_init','custom_body'); // global functions
 
+/* ASSIGN APP TO DISPLAY */
 $mb = new MONGOBASE_DISPLAY('default',$app);
 
-//$mb->display($mb); // Uncomment to see the $mb display object
+// Check the display object
+//$mb->display($mb);
+
+// PRINT the display object
 $mb->display();
