@@ -9,6 +9,7 @@ require_once(dirname(__DIR__).'/mb/displays/mb_form.class.php'); // Desired modu
 $app = new MONGOBASE_APP;
 
 /* EXAMPLE OF BUILDING A FORM - SHOWCASING ALL AVAILABLE OPTIONS */
+// Please note that $app->__('') allows for translatable strings
 $form_options = array(
 	'submit'        => true,
 	'submit_text'   => $app->__('Submit Example'),
@@ -20,15 +21,118 @@ $form_options = array(
 	'fields'        => array(
 		'field-01'	=> array(
 			'type'          => 'textbox',
+			'position'		=> 'half left',
 			'id'            => false,
 			'name'          => false,
 			'current_value' => false,
 			'default_value' => false,
 			'placeholder'   => false,
 			'required'      => false,
-			'label'         => false,
+			'label'         => $app->__('First Name'),
 			'class'         => 'blanked'
-		)
+		),
+		'field-02'	=> array(
+			'type'          => 'textbox',
+			'position'		=> 'half right',
+			'id'            => false,
+			'name'          => false,
+			'current_value' => false,
+			'default_value' => false,
+			'placeholder'   => false,
+			'required'      => false,
+			'label'         => $app->__('Family Name'),
+			'class'         => 'blanked'
+		),
+		'field-03'	=> array(
+			'type'          => 'textbox',
+			'position'		=> 'third left',
+			'id'            => false,
+			'name'          => false,
+			'current_value' => false,
+			'default_value' => false,
+			'placeholder'   => false,
+			'required'      => false,
+			'label'         => $app->__('Nickname'),
+			'class'         => 'blanked'
+		),
+		'field-04'	=> array(
+			'type'          => 'textbox',
+			'position'		=> 'third middle',
+			'id'            => false,
+			'name'          => false,
+			'current_value' => false,
+			'default_value' => false,
+			'placeholder'   => false,
+			'required'      => false,
+			'label'         => $app->__('Email'),
+			'class'         => 'blanked'
+		),
+		'field-05'	=> array(
+			'type'          => 'select',
+			'position'		=> 'third right',
+			'id'            => false,
+			'name'          => false,
+			'current_value' => false,
+			'default_value' => false,
+			'placeholder'   => false,
+			'required'      => false,
+			'label'         => $app->__('Nationality'),
+			'class'         => 'blanked',
+			'values'		=> array(
+				''			=> $app->__(' -- Select Nationality -- '),
+				'usa'		=> $app->__('United States'),
+				'uk'		=> $app->__('United Kingdom'),
+				'my'		=> $app->__('Malaysia')
+			)
+		),
+		'field-06'	=> array(
+			'type'          => 'textbox',
+			'position'		=> 'third left',
+			'id'            => false,
+			'name'          => false,
+			'current_value' => false,
+			'default_value' => false,
+			'placeholder'   => false,
+			'required'      => false,
+			'label'         => $app->__('Telephone Number'),
+			'class'         => 'blanked'
+		),
+		'field-07'	=> array(
+			'type'          => 'textbox',
+			'position'		=> 'thirds right',
+			'id'            => false,
+			'name'          => false,
+			'current_value' => false,
+			'default_value' => false,
+			'placeholder'   => false,
+			'required'      => false,
+			'label'         => $app->__('Simple Introduction'),
+			'class'         => 'blanked'
+		),
+		'field-08'	=> array(
+			'type'          => 'textbox',
+			'position'		=> 'thirds left',
+			'id'            => false,
+			'name'          => false,
+			'current_value' => false,
+			'default_value' => false,
+			'placeholder'   => false,
+			'required'      => false,
+			'label'         => $app->__('Address'),
+			'class'         => 'blanked'
+		),
+		'field-09'	=> array(
+			'type'          => 'textbox',
+			'position'		=> 'third right',
+			'id'            => false,
+			'name'          => false,
+			'current_value' => false,
+			'default_value' => false,
+			'placeholder'   => false,
+			'required'      => false,
+			'label'         => $app->__('Language'),
+			'class'         => 'blanked'
+		),
 	),
 	'styles'        => array(
 		'wrapped'       => true,

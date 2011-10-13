@@ -17,6 +17,7 @@ class MONGOBASE_FORM extends MONGOBASE_MODULE {
 	private function field_settings($field_settings = false, $form_settings = false){
 		$default_field = array(
 			'type'          => 'textbox',
+			'position'		=> false,
 			'id'            => false,
 			'name'          => false,
 			'current_value' => false,
@@ -190,12 +191,52 @@ class MONGOBASE_FORM extends MONGOBASE_MODULE {
 		ob_start();
 		?>
 		<style>
-		/* THIS NEEDS TO BE ADDED TO DYNAMIC PHP-BASED CSS STYLESHEET */
+		/* TODO: THIS NEEDS TO BE ADDED TO DYNAMIC PHP-BASED CSS STYLESHEET */
+
+		form.<?php echo $settings['class']; ?> div.<?php echo $settings['class']; ?>-field-wrapper {
+			vertical-align: top;
+			display: inline-block;
+			width: 100%;
+		}
+
+		form.<?php echo $settings['class']; ?> div.<?php echo $settings['class']; ?>-field-wrapper.half {
+			display: inline-block;
+			width: 48%;
+		}
+
+		form.<?php echo $settings['class']; ?> div.<?php echo $settings['class']; ?>-field-wrapper.third {
+			display: inline-block;
+			width: 31%;
+		}
+
+		form.<?php echo $settings['class']; ?> div.<?php echo $settings['class']; ?>-field-wrapper.thirds {
+			display: inline-block;
+			width: 65%;
+		}
+
+		form.<?php echo $settings['class']; ?> div.<?php echo $settings['class']; ?>-field-wrapper.left {
+			padding-right: 2%;
+		}
+
+		form.<?php echo $settings['class']; ?> div.<?php echo $settings['class']; ?>-field-wrapper.middle {
+			padding-left: 1%;
+			padding-right: 1%;
+			width: 32%;
+		}
+
+		form.<?php echo $settings['class']; ?> div.<?php echo $settings['class']; ?>-field-wrapper.right {
+			padding-left: 2%;
+		}
+
+		form.<?php echo $settings['class']; ?> div.<?php echo $settings['class']; ?>-field-wrapper.thirds.right {
+			padding-left: 1%;
+			width: 66%;
+		}
 
 		form#<?php echo $settings['id']; ?> .input-wrapper,
 		form.<?php echo $settings['class']; ?> .input-wrapper {
 			display: block;
-			padding: 1%;
+			padding: 8px;
 			margin: 0 0 25px;
 		}
 		form#<?php echo $settings['id']; ?> .input-wrapper .blanked,
@@ -300,7 +341,7 @@ class MONGOBASE_FORM extends MONGOBASE_MODULE {
 		if($settings['required']){ $required = 'required="required"'; }else{ $required = false; }
 		if($this_wrap){ $settings['class'] = $settings['class'].' blanked'; }
 		/* ADD FIELD WRAPPER */
-		$field = '<div id="'.$settings['id'].'-wrapper" class="'.$form_class.'-field-wrapper '.$form_class.'-'.$settings['type'].'-wrapper">';
+		$field = '<div id="'.$settings['id'].'-wrapper" class="'.$form_class.'-field-wrapper '.$form_class.'-'.$settings['type'].'-wrapper '.$settings['position'].'">';
 			/* ADD THE LABEL */
 			if($settings['label']){
 				$field.= '<label for="'.$settings['id'].'" class="'.$form_class.'-label">'.$settings['label'].'</label>';
@@ -351,7 +392,8 @@ class MONGOBASE_FORM extends MONGOBASE_MODULE {
 
 		if (isset($this->options) && ! empty($this->options)) return $this->options;
 
-		if($this->construct_set) $this->do_action('form_options',$this);
+		//if($this->construct_set) $this->do_action('form_options',$this);
+		$this->do_action('form_options',$this);
 
 		return $this->options;
 

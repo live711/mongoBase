@@ -77,17 +77,19 @@ class MONGOBASE_APP extends MONGOBASE {
 		// TODO: USE AN OBJECT METHOD WITH THE ARGS
 
 		if(isset($this->actions[$key])) $do = $this->actions[$key];
-
-		if (is_array($do)) {
-			$module= $do[0]; $method = $do[1];
-			if (method_exists($this->modules[$module],$method)) return $this->modules[$module]->$method($args); 
-				// or should we use is_callable?
-			else print "\n\nMethod $method undefined\n\n";
-		} else {	
-			$function = &$do;
-			if (function_exists($function)){
-				return $function($args);
-			} else print "\n\nFunction $function undefined\n\n"; // TODO: Error handling
+		else $do = null;
+		if($do!==null){
+			if (is_array($do)) {
+				$module= $do[0]; $method = $do[1];
+				if (method_exists($this->modules[$module],$method)) return $this->modules[$module]->$method($args);
+					// or should we use is_callable?
+				else print "\n\nMethod $method undefined\n\n";
+			} else {
+				$function = &$do;
+				if (function_exists($function)){
+					return $function($args);
+				} else print "\n\nFunction $function undefined\n\n"; // TODO: Error handling
+			}
 		}
 	}
 

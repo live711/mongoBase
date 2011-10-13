@@ -5,11 +5,9 @@
 class MONGOBASE_URLS extends MONGOBASE_MODULE {
 	public $ENV = null;
 	private $got_env = false;
-	private $construct_set = false;
 
-	function __construct($name=null,$app=null){
+	function __construct($name=null, $app=null){
 		parent::__construct($name,$app);
-		if($name!==null && $app!==null) $this->construct_set = true;
 		$this->got_env = $this->env();
 	}
 
@@ -44,7 +42,7 @@ class MONGOBASE_URLS extends MONGOBASE_MODULE {
 
 		if (isset($this->options) && ! empty($this->options)) return $this->options;
 	
-		if($this->construct_set) $this->do_action('custom_urls',$this);
+		$this->do_action('custom_urls',$this);
 
 		return $this->options;
 

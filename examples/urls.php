@@ -8,6 +8,7 @@ require_once(dirname(__DIR__).'/mb/classes/mb_app.class.php');
 require_once(dirname(__DIR__).'/mb/classes/mb_module.class.php');
 require_once(dirname(__DIR__).'/mb/classes/mb_urls.class.php');
 
+/*
 $app = new MONGOBASE_APP;
 // 'custom_urls'  is a special case as it's called on the object set up...
 
@@ -45,3 +46,6 @@ function my_urls($self){
 
 }
 
+*/
+$test = new MONGOBASE_URLS();
+var_dump($test);

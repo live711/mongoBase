@@ -4,11 +4,9 @@ class MONGOBASE_DISPLAY extends MONGOBASE_MODULE {
 
 	private $VIEW = null;
 	private $got_view = false;
-	private $construct_set = false;
 
 	function __construct($name=null,$app=null){
 		parent::__construct($name,$app);
-		if($name!==null && $app!==null) $this->construct_set = true;
 		$this->got_view = $this->view();
 	}
 
@@ -111,7 +109,7 @@ class MONGOBASE_DISPLAY extends MONGOBASE_MODULE {
 
 		if (isset($this->options) && ! empty($this->options)) return $this->options;
 
-		if($this->construct_set) $this->do_action('custom_views',$this);
+		$this->do_action('custom_views',$this);
 
 		return $this->options;
 
