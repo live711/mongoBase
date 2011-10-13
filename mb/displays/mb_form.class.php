@@ -185,6 +185,75 @@ class MONGOBASE_FORM extends MONGOBASE_MODULE {
 		return $settings;
 	}
 
+	private function form_styles(){
+		$settings = $this->form_options;
+		ob_start();
+		?>
+		<style>
+		/* THIS NEEDS TO BE ADDED TO DYNAMIC PHP-BASED CSS STYLESHEET */
+
+		form#<?php echo $settings['id']; ?> .input-wrapper,
+		form.<?php echo $settings['class']; ?> .input-wrapper {
+			display: block;
+			padding: 1%;
+			margin: 0 0 25px;
+		}
+		form#<?php echo $settings['id']; ?> .input-wrapper .blanked,
+		form.<?php echo $settings['class']; ?> .input-wrapper .blanked {
+			background: transparent;
+			border: none;
+			border-color: transparent;
+			display: block;
+			width: 100%;
+			padding: 0;
+			margin: 0;
+		}
+		form#<?php echo $settings['id']; ?> label.<?php echo $settings['class']; ?>-label,
+		form.<?php echo $settings['class']; ?> label.<?php echo $settings['class']; ?>-label {
+			display: block;
+			padding: 5px;
+			margin: 0 0 5px;
+			font-weight: bold;
+			color: <?php echo $settings['styles']['label']; ?>;
+		}
+		form#<?php echo $settings['id']; ?> textarea,
+		form.<?php echo $settings['class']; ?> texarea {
+			min-height: 85px;
+		}
+
+		form#<?php echo $settings['id']; ?> .<?php echo $settings['class']; ?>-submit,
+		form.<?php echo $settings['class']; ?> .<?php echo $settings['class']; ?>-submit {
+			clear: both;
+			display: block;
+			margin: 15px 0 25px;
+		}
+
+		/* FOR WRAPPED FIELDS ONLY */
+		form#<?php echo $settings['id']; ?> .input-wrapper,
+		form.<?php echo $settings['class']; ?> .input-wrapper {
+			background-color: <?php echo $settings['styles']['bg']; ?>;
+			border: <?php echo $settings['styles']['border']; ?>;
+			color: <?php echo $settings['styles']['color']; ?>;
+		}
+		form#<?php echo $settings['id']; ?> .input-wrapper .blanked,
+		form.<?php echo $settings['class']; ?> .input-wrapper .blanked {
+			color: <?php echo $settings['styles']['color']; ?>;
+		}
+
+		/* FOR UN-WRAPPED FIELDS ONLY */
+		form#<?php echo $settings['id']; ?> .not-wrapped,
+		form.<?php echo $settings['class']; ?> .not-wrapped {
+			background-color: <?php echo $settings['styles']['bg']; ?>;
+			border: <?php echo $settings['styles']['border']; ?>;
+			color: <?php echo $settings['styles']['color']; ?>;
+		}
+
+		</style>
+		<?php
+		$form_styles = ob_get_clean();
+		return $form_styles;
+	}
+
 	private function textarea($id = false, $class = false, $name = false, $placeholder = false, $required = false, $value = false){
 		$textarea = '<textarea id="'.$id.'" class="'.$class.'" name="'.$name.'" placeholder="'.$placeholder.'" autocomplete="off" '.$required.'>'.$value.'</textarea>';
 		return $textarea;
@@ -267,7 +336,15 @@ class MONGOBASE_FORM extends MONGOBASE_MODULE {
 	}
 
 	public function display(){
+		print_r($this->form_styles());
 		print_r($this->FORM);
+	}
+
+	public function get(){
+		ob_start();
+		$this->display();
+		$form = ob_get_clean();
+		return $form;
 	}
 
 	public function options(){

@@ -44,7 +44,23 @@ $form_options = array(
 	)
 );
 
-$mb = new MONGOBASE_FORM('example_form',$app,$form_options);
+$form = new MONGOBASE_FORM('example_form',$app,$form_options);
 
 //var_dump($mb->FORM);
+
+global $app, $example_form;
+$example_form = $form->get();
+
+/* FUNCTION FOR ADDING CONTENT */
+function custom_body($self){
+	global $app, $example_form;
+	$content = '<div id="content"><p>'.$app->__('This is an example form:').'</p>'.$example_form.'</div>';
+	$body = $self.$content;
+	return $body;
+}
+$app->add_filter('body_init','custom_body'); // global functions
+
+$mb = new MONGOBASE_DISPLAY('default',$app);
+
+//$mb->display($mb); // Uncomment to see the $mb display object
 $mb->display();

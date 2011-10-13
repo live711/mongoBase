@@ -5,11 +5,13 @@ require_once(dirname(__DIR__).'/mb/classes/mb_app.class.php'); // Required for $
 require_once(dirname(__DIR__).'/mb/classes/mb_module.class.php'); // Allows modules
 require_once(dirname(__DIR__).'/mb/displays/mb_display.class.php'); // Desired module
 
+global $app;
 $app = new MONGOBASE_APP;
 
 /* FUNCTION FOR ADDING CONTENT */
 function custom_body($self){
-	$content = '<div id="content">Hello World</div>';
+	global $app;
+	$content = '<div id="content">'.$app->__('Hello World').'</div>';
 	$body = $self.$content;
 	return $body;
 }
