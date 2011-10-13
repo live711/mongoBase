@@ -151,6 +151,7 @@ class MONGOBASE_FORM extends MONGOBASE_MODULE {
 			'id'            => false,
 			'class'         => 'mb-form',
 			'method'        => 'post',
+			'action'		=> false,
 			'enctype'       => 'multipart/form-data',
 			'debug'         => false,
 			'fields'        => false,
@@ -363,6 +364,12 @@ class MONGOBASE_FORM extends MONGOBASE_MODULE {
 			cursor: inherit;
 		}
 
+		/* BUTTONS */
+		form#<?php echo $settings['id']; ?> input.<?php echo $settings['class']; ?>-submit,
+		form.<?php echo $settings['class']; ?> input.<?php echo $settings['class']; ?>-submit {
+			cursor: pointer;
+		}
+
 		</style>
 		<?php
 		$form_styles = ob_get_clean();
@@ -472,7 +479,7 @@ class MONGOBASE_FORM extends MONGOBASE_MODULE {
 		if(!$force_refresh && $this->FORM!==null) return true;
 		
 		$settings = $this->form_settings($this->form_options);
-		$form = '<form id="'.$settings['id'].'-form" class="'.$settings['class'].'" method="'.$settings['method'].'" enctype="'.$settings['enctype'].'">';
+		$form = '<form id="'.$settings['id'].'-form" class="'.$settings['class'].'" method="'.$settings['method'].'" action="'.$settings['action'].'" enctype="'.$settings['enctype'].'">';
 			if($this->is_set($settings['fields'])){
 				foreach($settings['fields'] as $key => $field){
 					if(empty($field['id'])) $field['id'] = $key;

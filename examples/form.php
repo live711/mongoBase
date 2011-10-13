@@ -16,6 +16,7 @@ $form_options = array(
 	'id'            => 'example',
 	'class'         => 'example-form',
 	'method'        => 'post',
+	'action'		=> false,
 	'enctype'       => 'multipart/form-data',
 	'debug'         => false,
 	'fields'        => array(
@@ -85,7 +86,7 @@ $form_options = array(
 				'my'		=> $app->__('Malaysia')
 			)
 		),
-		'field-08'	=> array(
+		'field-06'	=> array(
 			'type'          => 'textbox',
 			'position'		=> 'thirds left',
 			'id'            => false,
@@ -97,7 +98,7 @@ $form_options = array(
 			'label'         => $app->__('Address'),
 			'class'         => 'blanked'
 		),
-		'field-09'	=> array(
+		'field-07'	=> array(
 			'type'          => 'select',
 			'position'		=> 'third right',
 			'id'            => false,
@@ -114,7 +115,7 @@ $form_options = array(
 				'es'		=> $app->__('Spanish')
 			)
 		),
-		'field-10'	=> array(
+		'field-08'	=> array(
 			'type'          => 'textarea',
 			'position'		=> 'third left',
 			'id'            => false,
@@ -126,7 +127,7 @@ $form_options = array(
 			'label'         => $app->__('Description'),
 			'class'         => 'blanked'
 		),
-		'field-11'	=> array(
+		'field-09'	=> array(
 			'type'          => 'radio',
 			'position'		=> 'third middle',
 			'id'            => false,
@@ -142,7 +143,7 @@ $form_options = array(
 				'f'			=> 'Female'
 			)
 		),
-		'field-12'	=> array(
+		'field-10'	=> array(
 			'type'          => 'checkbox',
 			'position'		=> 'third right',
 			'id'            => false,
