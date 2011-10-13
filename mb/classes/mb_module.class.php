@@ -23,12 +23,14 @@ class MONGOBASE_MODULE extends MONGOBASE {
 
 	public function do_action($key,$args=array()) {
 		// pass-through method
-		$this->app->do_action($key,$args);
+		if (isset($this->app)) $this->app->do_action($key,$args);
+		else trigger_error('no application registered',E_USER_WARNING);
 	}
 
 	public function apply_filters($key,$args=array()) {
 		// pass-through method
-		return $this->app->apply_filters($key,$args);
+		if (isset($this->app)) return $this->app->apply_filters($key,$args);
+		else trigger_error('no application registered',E_USER_WARNING);
 	}
 
 
