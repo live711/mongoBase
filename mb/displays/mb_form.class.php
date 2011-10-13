@@ -231,12 +231,20 @@ class MONGOBASE_FORM extends MONGOBASE_MODULE {
 			padding-left: 1%;
 			width: 66%;
 		}
+		form.<?php echo $settings['class']; ?> div.<?php echo $settings['class']; ?>-field-wrapper.thirds.left {
+			padding-right: 1%;
+			width: 66%;
+		}
 
 		form#<?php echo $settings['id']; ?> .input-wrapper,
 		form.<?php echo $settings['class']; ?> .input-wrapper {
 			display: block;
 			padding: 8px;
 			margin: 0 0 25px;
+		}
+		form#<?php echo $settings['id']; ?> .input-wrapper select,
+		form.<?php echo $settings['class']; ?> .input-wrapper select {
+			margin: 0 0 -1px !important;
 		}
 		form#<?php echo $settings['id']; ?> .input-wrapper .blanked,
 		form.<?php echo $settings['class']; ?> .input-wrapper .blanked {
@@ -254,6 +262,9 @@ class MONGOBASE_FORM extends MONGOBASE_MODULE {
 			padding: 5px;
 			margin: 0 0 5px;
 			font-weight: bold;
+			white-space: nowrap;
+			overflow: hidden;
+			cursor: pointer;
 			color: <?php echo $settings['styles']['label']; ?>;
 		}
 		form#<?php echo $settings['id']; ?> textarea,
@@ -288,6 +299,70 @@ class MONGOBASE_FORM extends MONGOBASE_MODULE {
 			color: <?php echo $settings['styles']['color']; ?>;
 		}
 
+		/* RADIO BOXES */
+		form#<?php echo $settings['id']; ?> .input-wrapper.radio,
+		form.<?php echo $settings['class']; ?> .input-wrapper.radio {
+			text-align: left;
+			background: transparent;
+			border-color: transparent;
+			padding: 8px 2px
+		}
+		form#<?php echo $settings['id']; ?> .input-wrapper .radio-box,
+		form.<?php echo $settings['class']; ?> .input-wrapper .radio-box {
+			clear: both;
+			float: left;
+			display: inline-block;
+			width: 5%;
+			text-align: left;
+			min-height:20px;
+			vertical-align: top;
+		}
+		form#<?php echo $settings['id']; ?> .radio-label,
+		form.<?php echo $settings['class']; ?> .radio-label {
+			display: inline-block;
+			float: left;
+			width: auto;
+			padding: 3px 0 0 4%;
+			text-align: left;
+			min-height:20px;
+			vertical-align: sub;
+		}
+
+		/* CHECK BOXES */
+		form#<?php echo $settings['id']; ?> .input-wrapper.checkbox,
+		form.<?php echo $settings['class']; ?> .input-wrapper.checkbox {
+			text-align: left;
+			background: transparent;
+			border-color: transparent;
+			padding: 8px 2px;
+		}
+		form#<?php echo $settings['id']; ?> .input-wrapper .check-box,
+		form.<?php echo $settings['class']; ?> .input-wrapper .check-box {
+			display: inline-block;
+			clear: both;
+			float: left;
+			width: 5%;
+			text-align: left;
+			min-height:20px;
+			vertical-align: top;
+		}
+		form#<?php echo $settings['id']; ?> .check-label,
+		form.<?php echo $settings['class']; ?> .check-label {
+			display: inline-block;
+			float: left;
+			width: auto;
+			padding: 3px 0 0 4%;
+			text-align: left;
+			min-height:20px;
+			vertical-align: sub;
+		}
+
+		/* FINAL RE-RESETS */
+		form.<?php echo $settings['class']; ?> label.<?php echo $settings['class']; ?>-label.checkbox,
+		form.<?php echo $settings['class']; ?> label.<?php echo $settings['class']; ?>-label.radio {
+			cursor: inherit;
+		}
+
 		</style>
 		<?php
 		$form_styles = ob_get_clean();
@@ -315,20 +390,57 @@ class MONGOBASE_FORM extends MONGOBASE_MODULE {
 		return $selectbox;
 	}
 
+	private function radio($id = false, $class = false, $name = false, $placeholder = false, $required = false, $value = false, $values = false){
+		if((is_array($values))&&(!empty($values))){
+			$radio = '';
+			foreach($values as $option_value => $option_label){
+				if($option_value==$value){
+					$selected = 'checked="checked"';
+				}else{
+					$selected = false;
+				}
+				$radio.= '<input type="radio" group="'.$id.'" class="'.$class.' radio-box" name="'.$name.'" value="'.$option_value.'" '.$selected.'><span class="radio-label">'.$option_label.'</span>';
+			}
+		}
+		return $radio;
+	}
+
+	private function checkbox($id = false, $class = false, $name = false, $placeholder = false, $required = false, $value = false, $values = false){
+		if((is_array($values))&&(!empty($values))){
+			$checkbox = '';
+			foreach($values as $option_value => $option_label){
+				if($option_value==$value){
+					$selected = 'checked="checked"';
+				}else{
+					$selected = false;
+				}
+				$checkbox.= '<input type="checkbox" group="'.$id.'" class="'.$class.' check-box" name="'.$name.'" value="'.$option_value.'" '.$selected.'><span class="check-label">'.$option_label.'</span>';
+			}
+		}
+		return $checkbox;
+	}
+
 	private function textbox($id = false, $class = false, $name = false, $placeholder = false, $required = false, $value = false, $type = false){
 		$textbox = '<input type="'.$type.'" id="'.$id.'" class="'.$class.'" name="'.$name.'" value="'.$value.'" placeholder="'.$placeholder.'" autocomplete="off" '.$required.' />';
 		return $textbox;
 	}
 
 	private function get_field($settings=false,$class=false,$required=false){
+		$this_wrap = $settings['this_wrap'];
+		if($this_wrap) $wrap = false;
+		else $wrap = 'not-wrapped';
 		if($settings['type']=='textarea'){
-            return $this->textarea($settings['id'], $settings['class'].' not-wrapped '.$class.'-'.$settings['type'], $settings['name'], $settings['placeholder'], $required, $settings['value']);
+            return $this->textarea($settings['id'], $settings['class'].' '.$wrap.' '.$class.'-'.$settings['type'], $settings['name'], $settings['placeholder'], $required, $settings['value']);
         }elseif($settings['type']=='email'){
-            return $this->textbox($settings['id'], $settings['class'].' not-wrapped '.$class.'-'.$settings['type'], $settings['name'], $settings['placeholder'], $required, $settings['value'], 'email');
+            return $this->textbox($settings['id'], $settings['class'].' '.$wrap.' '.$class.'-'.$settings['type'], $settings['name'], $settings['placeholder'], $required, $settings['value'], 'email');
         }elseif($settings['type']=='select'){
-            return $this->select($settings['id'], $settings['class'].' not-wrapped '.$class.'-'.$settings['type'], $settings['name'], $settings['placeholder'], $required, $settings['value'], $settings['values']);
+            return $this->select($settings['id'], $settings['class'].' '.$wrap.' '.$class.'-'.$settings['type'], $settings['name'], $settings['placeholder'], $required, $settings['value'], $settings['values']);
+        }elseif($settings['type']=='radio'){
+            return $this->radio($settings['id'], $settings['class'].' '.$wrap.' '.$class.'-'.$settings['type'], $settings['name'], $settings['placeholder'], $required, $settings['value'], $settings['values']);
+        }elseif($settings['type']=='checkbox'){
+            return $this->checkbox($settings['id'], $settings['class'].' '.$wrap.' '.$class.'-'.$settings['type'], $settings['name'], $settings['placeholder'], $required, $settings['value'], $settings['values']);
         }else{
-            return $this->textbox($settings['id'], $settings['class'].' not-wrapped '.$class.'-'.$settings['type'], $settings['name'], $settings['placeholder'], $required, $settings['value'], false);
+            return $this->textbox($settings['id'], $settings['class'].' '.$wrap.' '.$class.'-'.$settings['type'], $settings['name'], $settings['placeholder'], $required, $settings['value'], false);
         }
 	}
 
@@ -343,9 +455,9 @@ class MONGOBASE_FORM extends MONGOBASE_MODULE {
 		$field = '<div id="'.$settings['id'].'-wrapper" class="'.$form_class.'-field-wrapper '.$form_class.'-'.$settings['type'].'-wrapper '.$settings['position'].'">';
 			/* ADD THE LABEL */
 			if($settings['label']){
-				$field.= '<label for="'.$settings['id'].'" class="'.$form_class.'-label">'.$settings['label'].'</label>';
+				$field.= '<label for="'.$settings['id'].'" class="'.$form_class.'-label '.$settings['type'].'">'.$settings['label'].'</label>';
 			} if($this_wrap){
-				$field.= '<span class="input-wrapper">';
+				$field.= '<span class="input-wrapper '.$settings['type'].'">';
 			} $field.= $this->get_field($settings,$form_class,$required);
 			if($this_wrap){
 				$field.= '</span>';

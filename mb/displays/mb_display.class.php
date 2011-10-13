@@ -17,12 +17,12 @@ class MONGOBASE_DISPLAY extends MONGOBASE_MODULE {
 		$defaults = array(
 			'title'		=> 'mongoBase',
 			'styles'	=> array(
-				'base'	=> 'css',
-				'reset'	=> 'reset.css'
+				'base'		=> 'css',
+				'reset'		=> 'reset.css'
 			),
 			'scripts'	=> array(
-				'base'	=> 'js',
-				'js'	=> 'js.js'
+				'base'		=> 'js',
+				'jquery'	=> 'jquery-1-6-4.js'
 			)
 		);
 		$settings = $this->settings($args,$defaults);

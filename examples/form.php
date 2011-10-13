@@ -85,30 +85,6 @@ $form_options = array(
 				'my'		=> $app->__('Malaysia')
 			)
 		),
-		'field-06'	=> array(
-			'type'          => 'textbox',
-			'position'		=> 'third left',
-			'id'            => false,
-			'name'          => false,
-			'current_value' => false,
-			'default_value' => false,
-			'placeholder'   => false,
-			'required'      => false,
-			'label'         => $app->__('Telephone Number'),
-			'class'         => 'blanked'
-		),
-		'field-07'	=> array(
-			'type'          => 'textbox',
-			'position'		=> 'thirds right',
-			'id'            => false,
-			'name'          => false,
-			'current_value' => false,
-			'default_value' => false,
-			'placeholder'   => false,
-			'required'      => false,
-			'label'         => $app->__('Simple Introduction'),
-			'class'         => 'blanked'
-		),
 		'field-08'	=> array(
 			'type'          => 'textbox',
 			'position'		=> 'thirds left',
@@ -140,7 +116,7 @@ $form_options = array(
 		),
 		'field-10'	=> array(
 			'type'          => 'textarea',
-			'position'		=> false,
+			'position'		=> 'third left',
 			'id'            => false,
 			'name'          => false,
 			'current_value' => false,
@@ -149,6 +125,38 @@ $form_options = array(
 			'required'      => false,
 			'label'         => $app->__('Description'),
 			'class'         => 'blanked'
+		),
+		'field-11'	=> array(
+			'type'          => 'radio',
+			'position'		=> 'third middle',
+			'id'            => false,
+			'name'          => false,
+			'current_value' => false,
+			'default_value' => false,
+			'placeholder'   => false,
+			'required'      => false,
+			'label'         => $app->__('Your Gender'),
+			'class'         => 'blanked',
+			'values'		=> array(
+				'm'			=> 'Male',
+				'f'			=> 'Female'
+			)
+		),
+		'field-12'	=> array(
+			'type'          => 'checkbox',
+			'position'		=> 'third right',
+			'id'            => false,
+			'name'          => false,
+			'current_value' => false,
+			'default_value' => false,
+			'placeholder'   => false,
+			'required'      => false,
+			'label'         => $app->__('Preferred Gender'),
+			'class'         => 'blanked',
+			'values'		=> array(
+				'm'			=> 'Male',
+				'f'			=> 'Female'
+			)
 		),
 	),
 	'styles'        => array(
@@ -180,7 +188,7 @@ $example_form = $form->get();
 /* FUNCTION FOR ADDING CONTENT */
 function custom_body($self){
 	global $app, $example_form;
-	$content = '<div id="content"><p>'.$app->__('This is an example form:').'</p>'.$example_form.'</div>';
+	$content = '<div id="content"><h1>'.$app->__('This is an example form').'</h1>'.$example_form.'</div>';
 	$body = $self.$content;
 	return $body;
 }
@@ -191,12 +199,12 @@ $display_options = array(
 	'header'	=> array(
 		'title'		=> 'mongoBase Form Example',
 		'styles'	=> array(
-			'base'	=> 'css',
-			'reset'	=> 'reset.css'
+			'base'		=> 'css',
+			'example'	=> 'example.css'
 		),
 		'scripts'	=> array(
-			'base'	=> 'js',
-			'js'	=> 'js.js'
+			'base'		=> 'js',
+			'example'	=> 'example.js'
 		)
 	)
 );

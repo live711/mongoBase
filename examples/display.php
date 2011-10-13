@@ -14,7 +14,21 @@ function custom_body($self){
 	$content = '<div id="content">'.$app->__('Hello World').'</div>';
 	$body = $self.$content;
 	return $body;
-}
+};
+/* DISPLAY OPTIONS */
+$display_options = array(
+	'header'	=> array(
+		'title'		=> 'mongoBase Form Example',
+		'styles'	=> array(
+			'base'	=> 'css',
+			'reset'	=> 'example.css'
+		),
+		'scripts'	=> array(
+			'base'	=> 'js',
+			'js'	=> 'js.js'
+		)
+	)
+);
 $app->add_filter('body_init','custom_body'); // global functions
 
 $mb = new MONGOBASE_DISPLAY('default',$app);
