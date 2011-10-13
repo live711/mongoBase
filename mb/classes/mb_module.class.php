@@ -31,7 +31,6 @@ class MONGOBASE_MODULE extends MONGOBASE {
 		return $this->app->apply_filters($key,$args);
 	}
 
-	// we could also do add_action and filters etc... probably should
 
 }
 
