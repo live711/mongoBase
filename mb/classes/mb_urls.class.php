@@ -5,9 +5,11 @@
 class MONGOBASE_URLS extends MONGOBASE_MODULE {
 	public $ENV = null;
 	private $got_env = false;
+	private $construct_set = false;
 
-	function __construct($name,$app){
+	function __construct($name=null,$app=null){
 		parent::__construct($name,$app);
+		if($name!==null && $app!==null) $this->construct_set = true;
 		$this->got_env = $this->env();
 	}
 
@@ -23,33 +25,26 @@ class MONGOBASE_URLS extends MONGOBASE_MODULE {
 	$env['MB_CLASSES'] = __DIR__;
 	$env['MB_BASE'] = dirname(__DIR__);
 
-	var_dump($env);
 	$env['MB_HOME'] = str_replace($_SERVER['DOCUMENT_ROOT'],'',$env['DOCUMENT_ROOT']);
 	if (empty($env['MB_HOME'])) $env['MB_HOME'] = '/';
 	else $env['MB_HOME'] .= '/';
 
 	$env['MB_SLUG'] = $_SERVER['REQUEST_URI'];
 
-	var_dump(strlen($env['MB_HOME']));
 	$qs_pos = strpos($env['MB_SLUG'],'?');
 	if ($qs_pos !== false) $env['MB_SLUG'] = substr($env['MB_SLUG'],0,$qs_pos);
 
 	$env['MB_SLUG'] = substr($env['MB_SLUG'],strlen($env['MB_HOME']));
 		// QS is available in _GET.
-
 		$this->ENV = $env;
-
 		return true;
 	}
 
 	public function options(){
 
 		if (isset($this->options) && ! empty($this->options)) return $this->options;
-
-		/* ADDITIONAL ENV SETTINGS GET AUTO-GENERATED BASED ON THESE OPTIONS */
 	
-		$this->do_action('custom_urls',$this); // self referencing function... for a GLOBAL function
-		//$this->do_action('custom_urls'); // when registering a module and method.
+		if($this->construct_set) $this->do_action('custom_urls',$this);
 
 		return $this->options;
 
