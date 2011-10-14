@@ -32,11 +32,13 @@ $data = new MONGOBASE_PROCESS('process_form',$app,$process_options);
 
 /* USE PROCESS IN CONJUNCTION WITH DISPLAY */
 $processed_results = $data->process($_POST);
-$data_array = $data->DATA;
+$data_array = $data->DATA; // Retreave data-array once processed
 
 /* FUNCTION FOR ADDING CONTENT */
 function custom_body($self){
-	global $app, $processed_results, $data_array;
+	global $app; // Allows us to use translations within this function
+	global $processed_results; // Shows result for $data->process($_POST)
+	global $data_array; // Shows data-array once processed
 	$content = '<div id="content">';
 		$content.= '<h1>'.$app->__('EXAMPLE OF PROCESSING DATA').'</h1>';
 		$content.= '<p>'.$app->__('Object processed as follows: ').$processed_results.'</p>';
