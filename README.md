@@ -1,15 +1,18 @@
 **A simple framework for building PHP-based mongoDB applications.**
 
 # The Basic Features:
-* Fully OOP
-* Rapid App Development
+* Fully OOP - Everything is Classed
+* Allows for Rapid App Development
+* ONLY INCLUDE WHAT YOU NEED:
 
 ### Core optional modules include:
 * MongoDB Connect
-* Plugins
-* Languages
-* URLs
-* Security
+* Extendable Module Classes
+* Language / Translation Module
+* Base URLs and Routing Modules
+* Security & Log-In Modules
+* HTML5 Display Modules
+* Form Framework Modules
 
 # Getting Started:
 	<?php
