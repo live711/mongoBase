@@ -24,6 +24,11 @@ class MONGOBASE_APP extends MONGOBASE {
         $this->db = new MONGOBASE_DB();
     }
 
+
+	public function log($message) {
+		// TODO: - send to error logs or trigger errors or....
+		error_log($message);
+	}
 	
 	public function register_module($module) {
 		if (isset($this->modules[$module->name]) && is_object($this->modules[$module->name]))
@@ -36,21 +41,23 @@ class MONGOBASE_APP extends MONGOBASE {
 
 	public function apply_filters($key, $args){
 		if(isset($this->filters[$key])) $do = $this->filters[$key];
-		else $do = null;
-		if($do!==null){
-			if(is_array($do)){
-				/* TODO: CANNOT GET GLOBALS TO WORK */
-				$module= $do[0]; $method = $do[1];
-				if(method_exists($this->modules[$module],$method)) return $this->modules[$module]->$method($args);
-			}else{
-				$function = &$do;
-				if (function_exists($function)){
-					return $function($args);
-				}
-			}
-		}else{
+		else {
+			$this -> log('Missing filter: ' . $key);
 			return $args;
 		}
+
+		if(is_array($do)){
+			/* TODO: CANNOT GET GLOBALS TO WORK */
+			$module= $do[0]; $method = $do[1];
+			if(method_exists($this->modules[$module],$method)) return $this->modules[$module]->$method($args);
+		}else{
+		
+			$function = &$do;
+		
+			if (function_exists($function)) return $function($args);
+			else $this->log('Filter function: '.$function.' not defined ' . $key);
+		}
+
 	}
 
 	public function add_action($key, $arg1, $arg2 = null){
@@ -77,19 +84,20 @@ class MONGOBASE_APP extends MONGOBASE {
 		// TODO: USE AN OBJECT METHOD WITH THE ARGS
 
 		if(isset($this->actions[$key])) $do = $this->actions[$key];
-		else $do = null;
-		if($do!==null){
-			if (is_array($do)) {
-				$module= $do[0]; $method = $do[1];
-				if (method_exists($this->modules[$module],$method)) return $this->modules[$module]->$method($args);
-					// or should we use is_callable?
-				else print "\n\nMethod $method undefined\n\n";
-			} else {
-				$function = &$do;
-				if (function_exists($function)){
-					return $function($args);
-				} else print "\n\nFunction $function undefined\n\n"; // TODO: Error handling
-			}
+		else {
+			$this -> log('Missing action: ' . $key); // low priority
+			return $args;
+		}
+
+		if (is_array($do)) {
+			$module= $do[0]; $method = $do[1];
+			if (method_exists($this->modules[$module],$method)) return $this->modules[$module]->$method($args);
+				// or should we use is_callable?
+			else print "\n\nMethod $method undefined\n\n";
+		} else {
+			$function = &$do;
+			if (function_exists($function)) return $function($args);
+			else $this->log('Filter function: '.$function.' not defined ' . $key);
 		}
 	}
 
