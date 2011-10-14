@@ -10,6 +10,7 @@ require_once(dirname(__DIR__).'/mb/displays/mb_display.class.php'); // Desired m
 require_once(dirname(__DIR__).'/mb/classes/mb_process.class.php'); // Desired module
 
 $app = new MONGOBASE_APP;
+$app->setup_db();
 
 $process_options = array(
 
