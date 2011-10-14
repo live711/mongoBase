@@ -16,10 +16,13 @@
 
 # Getting Started:
 	<?php
-	require_once(__DIR__.'/mb/mb_base.class.php');
-	require_once(__DIR__.'/mb/mb_db.class.php');
-	$mb = new MONGOBASE_DB;
-	var_dump($mb);
+
+	require_once(__DIR__.'/mb/mb_base.class.php'); // The one file to rule them all
+	require_once(__DIR__.'/mb/mb_db.class.php'); // Required for MongoDB Connections
+
+	$mb = new MONGOBASE_DB; // Assign the DB Object to $mb
+	var_dump($mb); // Take a look at what the $mb object contains
+
 	?>
 
 # See it in Action:
