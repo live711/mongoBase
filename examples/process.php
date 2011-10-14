@@ -2,12 +2,12 @@
 
 global $app, $data;
 
-require_once(dirname(__DIR__).'/mb/classes/mb_base.class.php'); // Required
-require_once(dirname(__DIR__).'/mb/classes/mb_db.class.php'); // Required
+require_once(dirname(__DIR__).'/mb/classes/mb_base.class.php'); // The one file to rule them all
+require_once(dirname(__DIR__).'/mb/classes/mb_db.class.php'); // Required for processing
 require_once(dirname(__DIR__).'/mb/classes/mb_app.class.php'); // Required for $app, which is required for display
-require_once(dirname(__DIR__).'/mb/classes/mb_module.class.php'); // Allows modules
-require_once(dirname(__DIR__).'/mb/displays/mb_display.class.php'); // Desired module
-require_once(dirname(__DIR__).'/mb/classes/mb_process.class.php'); // Desired module
+require_once(dirname(__DIR__).'/mb/classes/mb_module.class.php'); // Allows for modules to be included
+require_once(dirname(__DIR__).'/mb/displays/mb_display.class.php'); // Required to display content nicely
+require_once(dirname(__DIR__).'/mb/classes/mb_process.class.php'); // Desired module for this example
 
 $app = new MONGOBASE_APP;
 $app->setup_db();
