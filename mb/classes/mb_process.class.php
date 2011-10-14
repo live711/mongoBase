@@ -2,7 +2,7 @@
 
 class MONGOBASE_PROCESS extends MONGOBASE_MODULE {
 
-	private $DATA = null;
+	public $DATA = null;
 	private $got_db = false;
 	private $process_options = false;
 
@@ -26,17 +26,25 @@ class MONGOBASE_PROCESS extends MONGOBASE_MODULE {
 
 		$results = null;
 		$data_array = array(
-			'col'	=> $settings['col'],
-			'obj'	=> $data,
-			'id'	=> $settings['id']
+			'col'		=> $settings['col'],
+			'obj'		=> $data,
+			'id'		=> $settings['id'],
+			'action'	=> false
 		);
 
 		if(($settings['delete']===true) && ($settings['id']) && ($settings['col'])){
 			$results = $this->app->db->delete($data_array);
+			$data_array['action'] = $this->__('delete');
 		}elseif($settings['col']){
 			$results = $this->app->db->mbsert($data_array);
+			if($settings['id']) $data_array['action'] = $this->__('edit');
+			else {
+				$data_array['action'] = $this->__('add');
+				$data_array['id'] = $results;
+			}
 		}else{
 			$results = $this->__('Collection Name Required');
+			$data_array['action'] = $this->__('error');
 		}
 
 		$filtered_results = $this->apply_filters('process_results', $results);

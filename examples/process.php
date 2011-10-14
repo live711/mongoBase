@@ -1,6 +1,6 @@
 <?php
 
-global $app, $data;
+global $app, $processed_results, $data_array;
 
 require_once(dirname(__DIR__).'/mb/classes/mb_base.class.php'); // The one file to rule them all
 require_once(dirname(__DIR__).'/mb/classes/mb_db.class.php'); // Required for processing
@@ -32,11 +32,16 @@ $data = new MONGOBASE_PROCESS('process_form',$app,$process_options);
 
 /* USE PROCESS IN CONJUNCTION WITH DISPLAY */
 $processed_results = $data->process($_POST);
+$data_array = $data->DATA;
 
 /* FUNCTION FOR ADDING CONTENT */
 function custom_body($self){
-	global $app, $processed_results;
-	$content = '<div id="content"><h1>'.$app->__('EXAMPLE OF PROCESSING DATA').'</h1><p>'.$app->__('Object processed as follows: ').$processed_results.'</p></div>';
+	global $app, $processed_results, $data_array;
+	$content = '<div id="content">';
+		$content.= '<h1>'.$app->__('EXAMPLE OF PROCESSING DATA').'</h1>';
+		$content.= '<p>'.$app->__('Object processed as follows: ').$processed_results.'</p>';
+		$content.= '<p>'.$app->__('The data-array is as follows: ').'<div style="text-align: left">'.$app->mb_dump($data_array).'</div></p>';
+	$content.= '</div>';
 	$body = $self.$content;
 	return $body;
 }
