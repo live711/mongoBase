@@ -24,6 +24,7 @@
 	var_dump($mb); // Take a look at what the $mb object contains
 
 	?>
+**Additionally, if you take a look at index.php (included with download) you will see links to examples for each module...**
 
 # See it in Action:
 * Supporting [MongoPress](http://mongopress.org) 0.3+
