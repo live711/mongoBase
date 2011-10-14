@@ -39,8 +39,10 @@ class MONGOBASE_PROCESS extends MONGOBASE_MODULE {
 			$results = $this->__('Collection Name Required');
 		}
 
+		$filtered_results = $this->apply_filters('process_results', $results);
+
 		$this->DATA = $data_array;
-		return $results;
+		return $filtered_results;
 	}
 
 	public function options(){
