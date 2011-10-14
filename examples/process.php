@@ -13,12 +13,22 @@ $app = new MONGOBASE_APP;
 $app->setup_db();
 
 $process_options = array(
-
+	'col'	=> 'mbsert' // Name of collection to access
+);
+$process_options_edit = array(
+	'col'	=> 'mbsert', // Name of collection to access
+	'id'	=> 'replace-with-valid-id' // Allow editing of objects
+);
+$process_options_delete = array(
+	'col'		=> 'mbsert', // Name of collection to access
+	'id'		=> 'replace-with-valid-id', // Needed for deletion
+	'delete'	=> true
 );
 $data = new MONGOBASE_PROCESS('process_form',$app,$process_options);
 
 // Check the process object
 //var_dump($data);
+//$_POST['field-08'] = 'new'; // Used to manipulate data for tests...
 
 /* USE PROCESS IN CONJUNCTION WITH DISPLAY */
 $processed_results = $data->process($_POST);
