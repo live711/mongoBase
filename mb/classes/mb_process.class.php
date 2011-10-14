@@ -33,8 +33,10 @@ class MONGOBASE_PROCESS extends MONGOBASE_MODULE {
 
 		if(($settings['delete']===true) && ($settings['id']) && ($settings['col'])){
 			$results = $this->app->db->delete($data_array);
-		}else{
+		}elseif($settings['col']){
 			$results = $this->app->db->mbsert($data_array);
+		}else{
+			$results = $this->__('Collection Name Required');
 		}
 
 		$this->DATA = $data_array;

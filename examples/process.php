@@ -26,7 +26,7 @@ $processed_results = $data->process($_POST);
 /* FUNCTION FOR ADDING CONTENT */
 function custom_body($self){
 	global $app, $processed_results;
-	$content = '<div id="content"><h1>'.$app->__('EXAMPLE OF PROCESSING DATA').'</h1>'.$app->mb_dump($processed_results).'</div>';
+	$content = '<div id="content"><h1>'.$app->__('EXAMPLE OF PROCESSING DATA').'</h1><p>'.$app->__('Object processed as follows: ').$processed_results.'</p></div>';
 	$body = $self.$content;
 	return $body;
 }
