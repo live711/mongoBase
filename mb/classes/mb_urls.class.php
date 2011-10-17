@@ -36,8 +36,15 @@ class MONGOBASE_URLS extends MONGOBASE_MODULE {
 	}
 	$env['MB_SLUG'] = $_SERVER['REQUEST_URI'];
 
+
 	$qs_pos = strpos($env['MB_SLUG'],'?');
 	if ($qs_pos !== false) $env['MB_SLUG'] = substr($env['MB_SLUG'],0,$qs_pos);
+
+
+	$last_char = strlen($env['MB_SLUG']);
+
+	// REMOVE TRAILING SLASH
+	if (substr($env['MB_SLUG'],-1) == '/') $env['MB_SLUG'] = substr($env['MB_SLUG'],0,-1);
 
 	$env['MB_SLUG'] = substr($env['MB_SLUG'],strlen($env['MB_HOME']));
 		// QS is available in _GET.
