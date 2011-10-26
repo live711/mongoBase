@@ -70,6 +70,7 @@ class MONGOBASE {
 	}
 
 	public function mb_dump($arg){
+		print "TO BE DEPRECATED - use mbu_dump()";
 		$dump = '<br /><br />Debugging object:<br /><pre>';
 		$dump.= print_r($arg,true);
 		$dump.= '</pre><br /><br />';

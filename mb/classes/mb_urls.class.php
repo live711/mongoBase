@@ -13,40 +13,42 @@ class MONGOBASE_URLS extends MONGOBASE_MODULE {
 
 	public function env($force_refresh = false){
 
-	if(!$force_refresh && $this->ENV!==null) return true;
+		if(!$force_refresh && $this->ENV!==null) return true;
 
-	$env['DOCUMENT_ROOT'] = dirname($_SERVER['SCRIPT_FILENAME']); // index.php
+		$env['DOCUMENT_ROOT'] = dirname($_SERVER['SCRIPT_FILENAME']); // index.php
+	
+		if (DIRECTORY_SEPARATOR !== '/') {
+			$env['DOCUMENT_ROOT'] = str_replace('\\','/',$env['DOCUMENT_ROOT']);
+		}
+		$env['MB_CLASSES'] = __DIR__;
+		$env['MB_BASE'] = dirname(__DIR__);
 
-	if (DIRECTORY_SEPARATOR !== '/') {
-		$env['DOCUMENT_ROOT'] = str_replace('\\','/',$env['DOCUMENT_ROOT']);
-	}
-	$env['MB_CLASSES'] = __DIR__;
-	$env['MB_BASE'] = dirname(__DIR__);
+		$env['MB_HOME'] = str_replace($_SERVER['DOCUMENT_ROOT'],'',$env['DOCUMENT_ROOT']);
+		if (empty($env['MB_HOME'])) $env['MB_HOME'] = '/';
+		else $env['MB_HOME'] .= '/';
 
-	$env['MB_HOME'] = str_replace($_SERVER['DOCUMENT_ROOT'],'',$env['DOCUMENT_ROOT']);
-	if (empty($env['MB_HOME'])) $env['MB_HOME'] = '/';
-	else $env['MB_HOME'] .= '/';
-
-	if($this->is_set($this->options)){
+		if($this->is_set($this->options)){
 			foreach($this->options as $key => $value){
 				$env[$key.'_ROOT'] = $env['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR.$value.DIRECTORY_SEPARATOR;
 				$env[$key.'_PATH'] = $env['MB_BASE'].DIRECTORY_SEPARATOR.$value.DIRECTORY_SEPARATOR;
 				$env[$key.'_URL'] = $env['MB_HOME'].$value.'/';
 			}
-	}
-	$env['MB_SLUG'] = $_SERVER['REQUEST_URI'];
+		}
 
 
-	$qs_pos = strpos($env['MB_SLUG'],'?');
-	if ($qs_pos !== false) $env['MB_SLUG'] = substr($env['MB_SLUG'],0,$qs_pos);
+		$slug  = $_SERVER['REQUEST_URI'];
+		$qs_pos = strpos($slug,'?');
+		if ($qs_pos !== false) $slug = substr($slug,0,$qs_pos);
+
+		$env['MB_SLUG'] = '/'. $slug;
+		$env['MB_SLUG_CLEAN'] = $slug;
 
 
-	$last_char = strlen($env['MB_SLUG']);
+		// REMOVE LEADING/TRAILING SLASH
+		if (substr($env['MB_SLUG_CLEAN'],-1) == '/') $env['MB_SLUG_CLEAN'] = substr($env['MB_SLUG_CLEAN'],0,-1);
+		if (substr($env['MB_SLUG_CLEAN'],0,1) == '/') $env['MB_SLUG_CLEAN'] = substr($env['MB_SLUG_CLEAN'],1);
 
-	// REMOVE TRAILING SLASH
-	if (substr($env['MB_SLUG'],-1) == '/') $env['MB_SLUG'] = substr($env['MB_SLUG'],0,-1);
-
-	$env['MB_SLUG'] = substr($env['MB_SLUG'],strlen($env['MB_HOME']));
+		$env['MB_SLUG'] = substr($env['MB_SLUG'],strlen($env['MB_HOME']));
 		// QS is available in _GET.
 		$this->ENV = $env;
 		return true;
