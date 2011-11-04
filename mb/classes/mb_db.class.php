@@ -203,18 +203,22 @@ class MONGOBASE_DB extends MONGOBASE {
 
 		try{
 
-			if(isset($settings['near'])){
+			if($this->is_set($settings['near'])){
 
 				$geo_near_query = array('geoNear'=>$settings['col'],'near'=>$settings['near'],'$spherical'=>true,'$maxDistance'=>$settings['distance']/6378,'num'=>$settings['limit']);
 				$geo_results = $dbh->command($geo_near_query);
-				foreach($geo_results['results'] as $result){
-                    if(is_array($result['obj'])){
-                        $temp_geo_results[] = $result['obj'];
-                    }
-                } $results = $temp_geo_results;
-				return $results;
+				if(isset($geo_results['results'])){
+					foreach($geo_results['results'] as $result){
+						if(is_array($result['obj'])){
+							$temp_geo_results[] = $result['obj'];
+						}
+					} $results = $temp_geo_results;
+					return $results;
+				}else{
+					return false;
+				}
 
-			}elseif(is_array($settings['col'])){
+			}elseif($this->is_set($settings['col'])){
 
 				$combined_array = false;
 				$i = 0;

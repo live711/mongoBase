@@ -11,6 +11,7 @@ require_once(dirname(__DIR__).'/mb/classes/mb_db.class.php');
 require_once(dirname(__DIR__).'/mb/classes/mb_app.class.php');
 
 $app = new MONGOBASE_APP;
+$app->setup_db();
 
 var_dump($app);
 
@@ -21,7 +22,3 @@ $add_object = array(
 );
 
 var_dump( $app->db->mbsert($add_object) );
-
-
-
-?>
