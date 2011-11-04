@@ -67,6 +67,42 @@ class MONGOBASE_DB extends MONGOBASE {
 			}
 		}
 	}
+
+	public function count($args = false){
+		$defaults = array(
+			'col'	=> 'mbsert',
+			'where' => array()
+		);
+		$settings = $this->settings($args,$defaults);
+		if(!$this->is_connected) $this->connect();
+		$dbh = $this->dbh;
+		try{
+
+			$collection = $dbh->$settings['col'];
+			$results = $collection->find($settings['where'])->count();
+			return $results;
+
+		}catch(Exception $e){
+			// should be able to do this class wide on the base object
+			return $this->__('Error: ').$e->getMessage();
+		}
+	}
+
+	public function _id($id){
+        $mongo_id = '';
+        if (isset($id)) {
+            if(is_object($id)){
+                foreach($id as $key => $value){
+                    if($key=='$id'){
+                        $mongo_id = $value;
+                    }
+                }
+            }
+            return (string)$mongo_id;
+        } else {
+            return (string)$id;
+        }
+	}
 	
 	public function options(){
 
@@ -136,11 +172,14 @@ class MONGOBASE_DB extends MONGOBASE {
 		$defaults = array(
 			'col'		=> 'mbsert',
 			'where'		=> array(),
+			'regex'		=> false,
 			'limit'		=> false,
 			'offset'	=> false,
 			'order_by'	=> false,
 			'order'		=> false,
-			'id'		=> false
+			'id'		=> false,
+			'near'		=> false,
+			'distance'	=> 100
 		);
 		$settings = $this->settings($args,$defaults);
 
@@ -154,11 +193,52 @@ class MONGOBASE_DB extends MONGOBASE {
 		if(!$this->is_connected) $this->connect();
 		$dbh = $this->dbh;
 
+		if($settings['regex']!==false) {
+			$regex_object = new MongoRegex($settings['regex']);
+			$where = $settings['where'];
+			$settings['where'] = array(
+				$where => $regex_object
+			);
+		}
+
 		try{
 
-			$collection = $dbh->$settings['col'];
-			$results = $this->arrayed($collection->find($settings['where'])->sort($sort_clause)->skip($settings['offset'])->limit($settings['limit']));
-			return $results;
+			if(isset($settings['near'])){
+
+				$geo_near_query = array('geoNear'=>$settings['col'],'near'=>$settings['near'],'$spherical'=>true,'$maxDistance'=>$settings['distance']/6378,'num'=>$settings['limit']);
+				$geo_results = $dbh->command($geo_near_query);
+				foreach($geo_results['results'] as $result){
+                    if(is_array($result['obj'])){
+                        $temp_geo_results[] = $result['obj'];
+                    }
+                } $results = $temp_geo_results;
+				return $results;
+
+			}elseif(is_array($settings['col'])){
+
+				$combined_array = false;
+				$i = 0;
+
+				foreach($settings['col'] as $this_collection){
+					$collection = $dbh->$this_collection;
+					$results = $this->arrayed($collection->find($settings['where'])->sort($sort_clause)->skip($settings['offset'])->limit($settings['limit']));
+					if(isset($results)){
+						foreach($results as $result){
+							$combined_array[$i] = $result;
+							$i++;
+						}
+					}
+				}
+
+				return $combined_array;
+
+			}else{
+
+				$collection = $dbh->$settings['col'];
+				$results = $this->arrayed($collection->find($settings['where'])->sort($sort_clause)->skip($settings['offset'])->limit($settings['limit']));
+				return $results;
+
+			}
 
 		}catch(Exception $e){
 			return $this->__('Error: ').$e->getMessage();

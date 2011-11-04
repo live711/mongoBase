@@ -1,6 +1,6 @@
 <?php
-/* This module is assumed to be running withing a webserver... well urls wouldn't make sense outside of one? */
 
+/* This module is assumed to be running withing a webserver... well urls wouldn't make sense outside of one? */
 
 class MONGOBASE_URLS extends MONGOBASE_MODULE {
 	public $ENV = null;
@@ -26,6 +26,9 @@ class MONGOBASE_URLS extends MONGOBASE_MODULE {
 		$env['MB_HOME'] = str_replace($_SERVER['DOCUMENT_ROOT'],'',$env['DOCUMENT_ROOT']);
 		if (empty($env['MB_HOME'])) $env['MB_HOME'] = '/';
 		else $env['MB_HOME'] .= '/';
+
+		if(strstr($_SERVER['SERVER_PROTOCOL'],'HTTPS')) $env['MB_URL'] = 'https://'.$_SERVER['HTTP_HOST'].$env['MB_HOME'];
+		$env['MB_URL'] = 'http://'.$_SERVER['HTTP_HOST'].$env['MB_HOME'];
 
 		if($this->is_set($this->options)){
 			foreach($this->options as $key => $value){
